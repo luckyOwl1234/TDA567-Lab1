@@ -1,0 +1,34 @@
+
+public void setRequiredNumber(int nemployee, int starttime, int endtime);
+
+sets the number of required working employees to nemployee for all hours
+	in the interval starttime to endtime.
+
+1. Specify (the domain and) the input space for each argument to the method (including the object of that method).
+
+requires:	0 <= nemployee <= MAX_INT
+ensures:	if nemployee > 0 then
+				the method sets that amount of workers required
+			otherwise
+				the method doesn't set anything
+
+requires:	0 <= starttime <= size
+ensures:	if starttime is inside the boundaries
+				the method sets the start time
+			otherwise
+				the method doesn't set anything
+
+requires:	0 <= endtime <= size
+ensures:	if endtime is inside the boundaries
+				the method sets the end time
+			otherwise
+				the method doesn't set anything
+
+2. Divide this input space into partitions, based on the specification.
+
+Input space: 0 <= nemployee <= MAX_INT
+
+Partition #1: nemployee 
+
+3. Implement at least one test case for each partition, and possibly additional border cases.
+

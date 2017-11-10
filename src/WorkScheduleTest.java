@@ -59,11 +59,13 @@ public class WorkScheduleTest {
     }
 
 
-    /*@Test
-    public boolean addWorkingPeriodTest(){
-        return true;
-    }
 
+
+    @Test
+    public void addWorkingPeriodTest(){
+
+    }
+/*
     @Test
     public String[] workingEmployeesTest(){
         return null;
