@@ -72,6 +72,13 @@ public class WorkScheduleTest {
     }
 
     @Test
+    public void addWorkingPeriodAddWrongNameTest(){
+        work.setRequiredNumber(1, 2,4);
+        work.addWorkingPeriod("John", 2,4);
+        assertArrayEquals(new String[]{"Mark"}, work.workingEmployees(2,4));
+    }
+
+    @Test
     public void addWorkingPeriodStartBiggerEndTest(){
         work.setRequiredNumber(1, 2,4);
         work.addWorkingPeriod("John", 4,2);
