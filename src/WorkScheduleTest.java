@@ -72,31 +72,24 @@ public class WorkScheduleTest {
     }
 
     @Test
-    public void addWorkingPeriodAddWrongNameTest(){
-        work.setRequiredNumber(1, 2,4);
-        work.addWorkingPeriod("John", 2,4);
-        assertArrayEquals(new String[]{"Mark"}, work.workingEmployees(2,4));
-    }
-
-    @Test
     public void addWorkingPeriodStartBiggerEndTest(){
-        work.setRequiredNumber(1, 4,2);
-        work.addWorkingPeriod("John", 2,4);
-        assertArrayEquals(new String[]{"John"}, work.workingEmployees(2,4));
+        work.setRequiredNumber(1, 2,4);
+        work.addWorkingPeriod("John", 4,2);
+        assertEquals(0, work.workingEmployees(2,4).length);
     }
 
     @Test
     public void addWorkingPeriodStartLessZeroTest(){
         work.setRequiredNumber(1, 2,4);
         work.addWorkingPeriod("John", -1,4);
-        assertArrayEquals(new String[]{"John"}, work.workingEmployees(2,4));
+        assertEquals(0, work.workingEmployees(2,4).length);
     }
 
     @Test
     public void addWorkingPeriodEndMoreSizeTest(){
         work.setRequiredNumber(1, 2,4);
         work.addWorkingPeriod("John", 2,25);
-        assertArrayEquals(new String[]{"John"}, work.workingEmployees(2,4));
+        assertEquals(0, work.workingEmployees(2,4).length);
     }
 
     @Test
@@ -104,7 +97,7 @@ public class WorkScheduleTest {
         work.setRequiredNumber(1, 2,4);
         work.addWorkingPeriod("John", 2,4);
         work.addWorkingPeriod("Mark", 2,4);
-        assertArrayEquals(new String[]{"John"}, work.workingEmployees(2,4));
+        assertEquals(1, work.workingEmployees(2,4).length);
     }
 
     @Test
@@ -112,17 +105,9 @@ public class WorkScheduleTest {
         work.setRequiredNumber(3, 2,4);
         work.addWorkingPeriod("John", 2,4);
         work.addWorkingPeriod("Mark", 2,4);
-        assertArrayEquals(new String[]{"John", "Mark"}, work.workingEmployees(2,4));
+        assertEquals(2, work.workingEmployees(2,4).length);
     }
 
-    @Test
-    public void addWorkingPeriodAddingNoNeededTest(){
-        work.setRequiredNumber(2, 2,4);
-        work.addWorkingPeriod("John", 2,4);
-        work.addWorkingPeriod("Mark", 2,4);
-        work.addWorkingPeriod("Linus", 2,4);
-        assertArrayEquals(work.workingEmployees(2,4).length, work.readSchedule(2).workingEmployees().length);
-    }
 
 
 
