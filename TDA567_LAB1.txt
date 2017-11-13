@@ -13,13 +13,13 @@ ensures:	if nemployee > 0 then
 
 requires:	0 <= starttime < endtime
 ensures:	if starttime is inside the boundaries
-				the method sets the start time
+				the method sets the schedule
 			otherwise
 				the method doesn't set anything
 
 requires:	starttime < endtime <= size
 ensures:	if endtime is inside the boundaries
-				the method sets the end time
+				the method sets the schedule
 			otherwise
 				the method doesn't set anything
 
@@ -31,3 +31,40 @@ Partition #1: nemployee
 
 3. Implement at least one test case for each partition, and possibly additional border cases.
 
+---------------------------------------------------------------------------------------------------
+
+public boolean addWorkingPeriod(String employee, int starttime, int endtime);
+
+schedules employee to work during the hours from starttime to endtime.
+
+1. Specify (the domain and) the input space for each argument to the method (including the object of that method).
+
+requires:
+  employee is a non-null string
+ensures:
+  if starttime < 0 or endtime >= size or starttime > endtime then
+    returns false and the schedule is unchanged
+  otherwise
+    if for any hour in the interval starttime to endtime the length of workingEmployees is equal to requiredNumber then
+      returns false and the schedule is unchanged
+    otherwise
+      if for any hour in the interval starttime to endtime there is a string in workingEmployees which equal employee then
+        returns false and the schedule is unchanged
+      otherwise
+        returns true,
+        for i between starttime and endtime, workingEmployees contain a string equal to employee and
+        the rest of the schedule is unchanged
+
+requires:
+ensures:
+
+requires:
+ensures:
+
+2. Divide this input space into partitions, based on the specification.
+
+Input space:
+
+Partition #1:
+
+3. Implement at least one test case for each partition, and possibly additional border cases.
