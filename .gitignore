@@ -120,6 +120,9 @@ fabric.properties
 
 .idea/
 
+## Ignore IML
+*.iml
+
 ### Java ###
 # Compiled class file
 *.class
