@@ -22,9 +22,11 @@ public class sectionTests {
         a.insert(1);
         a.insert(2);
         a.insert(3);
+
         s.insert(3);
         s.insert(4);
         s.insert(5);
+
         a.section(s);
         assertArrayEquals(new int[]{1}, a.toArray());
     }
