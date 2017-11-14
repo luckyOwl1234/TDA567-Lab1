@@ -15,7 +15,14 @@ public class insertTest {
     }
 
     @Test
-    public void testInsert(){
+    public void testInsertDifferentValues() {
+        set.insert(1);
+        set.insert(2);
+        assertArrayEquals(new int[] {1,2}, set.toArray());
+    }
+
+    @Test
+    public void testInsertSameValues(){
         set.insert(3);
         set.insert(1);
         set.insert(2);
