@@ -26,10 +26,7 @@ public class Set {
                 }
             }
         }
-        /*if satsen löser att den inte lägger in dubbletter*/
-        if(a.size() == 0) {
-            a.add(x);
-        }
+        a.add(x);
     }
 
     public boolean member(int x) {
