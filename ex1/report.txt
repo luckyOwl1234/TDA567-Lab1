@@ -1,0 +1,27 @@
+public boolean addWorkingPeriod(String employee, int starttime, int endtime);
+
+requires: TODO
+ensures: TODO
+
+Input space: TODO
+
+Partition #1: TODO
+Partition #n: TODO
+
+Border cases: TODO
+
+Found bugs: TODO
+
+public String[] workingEmployees(int starttime, int endtime);
+
+requires: TODO
+ensures: TODO
+
+Input space: TODO
+
+Partition #1: TODO
+Partition #n: TODO
+
+Border cases: TODO
+
+Found bugs: TODO
