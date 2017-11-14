@@ -1,11 +1,34 @@
 public boolean addWorkingPeriod(String employee, int starttime, int endtime);
 
-requires: TODO
-ensures: TODO
+requires:
+  employee is a non-null string
+ensures:
+  if starttime < 0 or endtime >= size or starttime > endtime then
+    returns false and the schedule is unchanged
+  otherwise
+    if for any hour in the interval starttime to endtime the length of workingEmployees is equal to requiredNumber then
+      returns false and the schedule is unchanged
+    otherwise
+      if for any hour in the interval starttime to endtime there is a string in workingEmployees which equal employee then
+        returns false and the schedule is unchanged
+      otherwise
+        returns true,
+        for i between starttime and endtime, workingEmployees contain a string equal to employee and
+        the rest of the schedule is unchanged
 
-Input space: TODO
+Input space: s != null, 0 <= i < i1, i < i1 <= size
 
-Partition #1: TODO
+Partition #1: i < i1
+    AddOnePerson_addWorkingPeriod_part1 input: s = John, i = 2, i1 = 4, expected: AddWorker
+Partition #2: i > i1
+    StartTimeBiggerThanEndTime_addWorkingPeriod_part2 input: s = John, i = 4, i = 2, expected: DoNotAddWorker
+Partition #3: i < 0
+    StartTimeLessThanZero_addWorkingPeriod_part3 input: s = John, i = -1, i1 = 4, expected: DoNotAddWorker
+Partition #4: i2 > size
+    EndTimeHigherThanSize_addWorkingPeriod_part4 input: s = John, i = 2, i1 = 25, expected DoNotAddWorker
+Partition #5:
+   TODO a_b_part5 input: (setRequiredNumber(1,2,4),
+
 Partition #n: TODO
 
 Border cases: TODO
@@ -14,8 +37,15 @@ Found bugs: TODO
 
 public String[] workingEmployees(int starttime, int endtime);
 
-requires: TODO
-ensures: TODO
+requires:
+  starttime >= 0 and endtime < size
+ensures:
+  if starttime <= endtime then
+    returns an array with distinct strings -- a string appears in the return array if and only if
+    it appears in the workingEmployees of at least one hour in the interval starttime to endtime
+  otherwise
+    returns an empty array
+  and in either case the schedule is unchanged
 
 Input space: TODO
 

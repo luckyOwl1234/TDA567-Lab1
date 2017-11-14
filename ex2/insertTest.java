@@ -36,14 +36,14 @@ public class insertTest {
     @Test
     public void testInsertSameValues(){
         set.insert(1);
-        set.insert(1);
+        set.insert(2);
         set.insert(2);
         set.insert(3);
         assertArrayEquals(correctArray, set.toArray());
     }
 
     @Test
-    public void testInsertLargeNumbers(){
+    public void testInsertEdgeCases(){
         set.insert(Integer.MIN_VALUE);
         set.insert(-1);
         set.insert(0);
@@ -53,15 +53,10 @@ public class insertTest {
     }
 
     @Test
-    public void testInsertNull(){
-        set.insert(Integer.parseInt(null));
-        assertNull(set.toArray());
-    }
-
-    @Test
     public void testInsertPsuedorandom() {
         set.insert(2);
         set.insert(1);
         set.insert(3);
+        assertArrayEquals(correctArray, set.toArray());
     }
 }

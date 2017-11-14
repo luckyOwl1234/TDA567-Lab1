@@ -14,7 +14,7 @@ public class workingEmployeesTests {
     }
 
     @Test
-    public void workingEmployeesTest(){
+    public void workingEmployees_AddToLimit_ContainCorrectWorkers(){
         work.setRequiredNumber(2, 4,8);
         work.addWorkingPeriod("Linus", 4,6);
         work.addWorkingPeriod("Joakim", 4,5);
@@ -22,7 +22,7 @@ public class workingEmployeesTests {
     }
 
     @Test
-    public void workingEmployeesTestEmptyArray(){
+    public void workingEmployees_EmptySchedule_IsEmpty(){
         assertEquals(0, work.workingEmployees(3,4).length);
     }
 

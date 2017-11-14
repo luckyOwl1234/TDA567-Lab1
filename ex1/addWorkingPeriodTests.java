@@ -14,43 +14,35 @@ public class addWorkingPeriodTests {
     }
 
     @Test
-    public void addWorkingPeriodAddOnePersonTest() {
+    public void addWorkingPeriod_AddWorkerOnePerson_AddWorker() {
         work.setRequiredNumber(1, 2, 4);
         work.addWorkingPeriod("John", 2, 4);
         Assert.assertArrayEquals(new String[]{"John"}, work.workingEmployees(2, 4));
     }
 
     @Test
-    public void addWorkingPeriodAddWrongNameTest() {
-        work.setRequiredNumber(1, 2, 4);
-        work.addWorkingPeriod("John", 2, 4);
-        assertFalse("Mark".equals(work.workingEmployees(2, 4)));
-        //assertArrayEquals(new String[]{"Mark"}, work.workingEmployees(2,4));
-    }
-
-    @Test
-    public void addWorkingPeriodStartBiggerEndTest() {
+    public void addWorkingPeriod_StartTimeBiggerThanEndTime_DoNotAddWorker() {
         work.setRequiredNumber(1, 2, 4);
         work.addWorkingPeriod("John", 4, 2);
         Assert.assertEquals(0, work.workingEmployees(2, 4).length);
     }
 
     @Test
-    public void addWorkingPeriodStartLessZeroTest() {
+    public void addWorkingPeriod_StartTimeLessThanZero_DoNotAddWorker() {
         work.setRequiredNumber(1, 2, 4);
         work.addWorkingPeriod("John", -1, 4);
         Assert.assertEquals(0, work.workingEmployees(2, 4).length);
     }
 
     @Test
-    public void addWorkingPeriodEndMoreSizeTest() {
+    public void addWorkingPeriod_EndTimeHigherThanSize_DoNotAddWorker() {
         work.setRequiredNumber(1, 2, 4);
         work.addWorkingPeriod("John", 2, 25);
         Assert.assertEquals(0, work.workingEmployees(2, 4).length);
     }
 
     @Test
-    public void addWorkingPeriodAddingMoreNeededTest() {
+    public void addWorkingPeriod_AddMoreWorkersThanNeeded_DoNotAddWorker() {
         work.setRequiredNumber(1, 2, 4);
         work.addWorkingPeriod("John", 2, 4);
         work.addWorkingPeriod("Mark", 2, 4);
@@ -58,7 +50,7 @@ public class addWorkingPeriodTests {
     }
 
     @Test
-    public void addWorkingPeriodAddingLessNeededTest() {
+    public void addWorkingPeriod_AddWorkerFewerWorkersThanNeeded_AddWorker() {
         work.setRequiredNumber(3, 2, 4);
         work.addWorkingPeriod("John", 2, 4);
         work.addWorkingPeriod("Mark", 2, 4);
