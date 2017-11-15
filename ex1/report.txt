@@ -18,22 +18,28 @@ ensures:
 
 Input space: s != null, 0 <= i < i1, i < i1 <= size
 
-Partition #1: i < i1
-    AddOnePerson_addWorkingPeriod_part1 input: s = John, i = 2, i1 = 4, expected: AddWorker
-Partition #2: i > i1
-    StartTimeBiggerThanEndTime_addWorkingPeriod_part2 input: s = John, i = 4, i = 2, expected: DoNotAddWorker
-Partition #3: i < 0
-    StartTimeLessThanZero_addWorkingPeriod_part3 input: s = John, i = -1, i1 = 4, expected: DoNotAddWorker
-Partition #4: i2 > size
-    EndTimeHigherThanSize_addWorkingPeriod_part4 input: s = John, i = 2, i1 = 25, expected DoNotAddWorker
-Partition #5:
-   TODO a_b_part5 input: (setRequiredNumber(1,2,4),
-
-Partition #n: TODO
+Partition #1: No setRequiredNumber
+    AddWorkerWhenNoneIsNeeded_addWorkingPeriod_part1 input: s = John, i = 2, i1 = 4, expected: DoNotAddWorker
+Partition #2: i < i1
+    AddOnePerson_addWorkingPeriod_part2 input: s = John, i = 2, i1 = 4, expected: AddWorker
+Partition #3: i > i1
+    StartTimeBiggerThanEndTime_addWorkingPeriod_part3 input: s = John, i = 4, i = 2, expected: DoNotAddWorker
+Partition #4: i > i1
+    WrongReturnData_addWorkerPeriod_part4 input: s = John, i = 4, i = 2, expected: ReturnFalse
+Partition #5: i < 0
+    StartTimeLessThanZero_addWorkingPeriod_part5 input: s = John, i = -1, i1 = 4, expected: DoNotAddWorker
+Partition #6: i2 > size
+    EndTimeHigherThanSize_addWorkingPeriod_part6 input: s = John, i = 2, i1 = 25, expected: DoNotAddWorker
+Partition #7: setRequiredNumber(1,2,4)
+    AddMoreWorkersThanNeeded_addWorkerPeriod_part7 input: {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 4}
+    expected: John Added, Mark not Added
+Partition #8: setRequiredNumber(1,2,4) and setRequiredNumber(1,5,6)
+    AddWorkerOverBiggerIntervalThanNeeded_addWorkerPeriod_part8 input {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 6}
+    expected: John Added, Mark not Added
 
 Border cases: TODO
 
-Found bugs: TODO
+Found bugs: addWorkerPeriod(1, 4, 2) returns true even if it doesnt add a worker to the schedule.
 
 public String[] workingEmployees(int starttime, int endtime);
 
