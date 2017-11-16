@@ -40,4 +40,19 @@ public class workingEmployeesTests {
         assertEquals(0, work.workingEmployees(0,23).length);
     }
 
+    @Test
+    public void workingEmployees_AllWorkersAtDifferentTimes_AllWorkers() {
+        work.setRequiredNumber(4, 0,23);
+
+        work.addWorkingPeriod("Alfa", 0,1);
+        work.addWorkingPeriod("Bravo", 3, 5);
+        work.addWorkingPeriod("Charlie", 5, 8);
+        work.addWorkingPeriod("Delta", 9, 23);
+
+        //String[] test = work.workingEmployees(0,23);
+        //String[] defaults = new String[] {"Alfa","Bravo","Charlie","Delta"};
+
+        assertEquals(new String[] {"Alfa","Bravo","Charlie","Delta"}, work.workingEmployees(0,23));
+    }
+
 }
