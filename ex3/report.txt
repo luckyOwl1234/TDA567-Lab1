@@ -1,0 +1,5 @@
+1. Run the default program, with value 4: Works
+2. Run the default program, with values 1,2,3,5,6,7,8: Every case fails when they shouldn't
+3. Run the default program, with values outside of the array, like 0, 9, -1, and 10, expecting failure: Every case fails as intended
+4. Breakpoint at row 35 to confirm that the parameters are correctly initiated: They are
+5. TODO
