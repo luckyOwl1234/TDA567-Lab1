@@ -19,52 +19,72 @@ ensures:
 Input space: s != null, 0 <= i < i1, i < i1 < size
 
 Partition #1: No setRequiredNumber
-    AddWorkerWhenNoneIsNeeded_addWorkingPeriod_part1 input: s = John, i = 2, i1 = 4, expected: DoNotAddWorker
+    AddWorkerWhenNoneIsNeeded_addWorkingPeriod_part1
+        input: s = John, i = 2, i1 = 4, expected: DoNotAddWorker
 Partition #2: No setRequiredNumber
-    AddWorkerWhenNoneIsNeededReturnValue_addWorkingPeriod_part2 input: s = John, i = 2, i1 = 2 expected: ReturnFalse
+    AddWorkerWhenNoneIsNeededReturnValue_addWorkingPeriod_part2
+        input: s = John, i = 2, i1 = 2 expected: ReturnFalse
 Partition #3: i < i1 and setRequiredNumber(1,2,4)
-    AddOnePerson_addWorkingPeriod_part3 input: s = John, i = 2, i1 = 4, expected: AddWorker
+    AddOnePerson_addWorkingPeriod_part3
+        input: s = John, i = 2, i1 = 4, expected: AddWorker
 Partition #4: i < i1 and setRequiredNumber(1,2,4)
-    AddWorkerOnePersonReturnValue_addWorkingPeriod_part4 input: s = John, i = 2, i1 = 4, expected: ReturnTrue
+    AddWorkerOnePersonReturnValue_addWorkingPeriod_part4
+        input: s = John, i = 2, i1 = 4, expected: ReturnTrue
 Partition #5: i > i1 and setRequiredNumber(1,2,4)
-    StartTimeBiggerThanEndTime_addWorkingPeriod_part5 input: s = John, i = 4, i = 2, expected: DoNotAddWorker
+    StartTimeBiggerThanEndTime_addWorkingPeriod_part5
+        input: s = John, i = 4, i = 2, expected: DoNotAddWorker
 Partition #6: i > i1 and setRequiredNumber(1,2,4)
-    StartTimeBiggerThanEndTimeReturnValue_addWorkingPeriod_part6 input: s = John, i = 4, i = 2, expected: ReturnFalse
+    StartTimeBiggerThanEndTimeReturnValue_addWorkingPeriod_part6
+        input: s = John, i = 4, i = 2, expected: ReturnFalse
 Partition #7: i < 0 and setRequiredNumber(1,2,4)
-    StartTimeLessThanZero_addWorkingPeriod_part7 input: s = John, i = -1, i1 = 4, expected: DoNotAddWorker
+    StartTimeLessThanZero_addWorkingPeriod_part7
+        input: s = John, i = -1, i1 = 4, expected: DoNotAddWorker
 Partition #8: i < 0 and setRequiredNumber(1,2,4)
-    StartTimeLessThanZeroReturnValue_addWorkingPeriod_part8 input: s = John, i = 4, i = 2, expected: ReturnFalse
+    StartTimeLessThanZeroReturnValue_addWorkingPeriod_part8
+        input: s = John, i = 4, i = 2, expected: ReturnFalse
 Partition #9: i2 >= size and setRequiredNumber(1,2,4)
-    EndTimeHigherThanSize_addWorkingPeriod_part9 input: s = John, i = 2, i1 = 25, expected: DoNotAddWorker
+    EndTimeHigherThanSize_addWorkingPeriod_part9
+        input: s = John, i = 2, i1 = 25, expected: DoNotAddWorker
 Partition #10: i2 >= size and setRequiredNumber(1,2,4)
-    EndTimeHigherThanSizeReturnValue_addWorkingPeriod_part10 input: s = John, i = 2, i1 = 25, expected: ReturnFalse
+    EndTimeHigherThanSizeReturnValue_addWorkingPeriod_part10
+        input: s = John, i = 2, i1 = 25, expected: ReturnFalse
 Partition #11: setRequiredNumber(1,2,4)
-    AddMoreWorkersThanNeeded_addWorkingPeriod_part11 input: {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 4}
+    AddMoreWorkersThanNeeded_addWorkingPeriod_part11
+        input: {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 4}
     expected: John Added, Mark not Added
 Partition #12: setRequiredNumber(1,2,4)
-    AddMoreWorkersThanNeededReturnValue_addWorkingPeriod_part12 input: {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 4}
+    AddMoreWorkersThanNeededReturnValue_addWorkingPeriod_part12
+        input: {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 4}
     expected: Mark ReturnFalse
 Partition #13: setRequiredNumber(3,2,4)
-    AddFewerWorkersThanNeeded_addWorkingPeriod_part13 input: {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 4}
+    AddFewerWorkersThanNeeded_addWorkingPeriod_part13
+        input: {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 4}
     expected: John Added, Mark Added
 Partition #14: setRequiredNumber(3,2,4)
-    AddFewerWorkersThanNeededReturnValue_addWorkingPeriod_part14 input: {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 4}
+    AddFewerWorkersThanNeededReturnValue_addWorkingPeriod_part14
+        input: {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 4}
     expected: Mark ReturnTrue
 Partition #15: setRequiredNumber(1,2,4) and setRequired(1,5,6)
-    AddWorkerOverBiggerIntervalThanNeeded_addWorkingPeriod_part15 input: {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 6}
+    AddWorkerOverBiggerIntervalThanNeeded_addWorkingPeriod_part15
+        input: {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 6}
     expected: John Added, Mark not Added
 Partition #16: setRequiredNumber(1,2,4) and setRequiredNumber(1,5,6)
-    AddWorkerOverBiggerIntervalThanNeededReturnValue_addWorkingPeriod_part16 input: {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 6}
+    AddWorkerOverBiggerIntervalThanNeededReturnValue_addWorkingPeriod_part16
+        input: {s = John, i = 2, i1 = 4}, {s = Mark, i = 2, i1 = 6}
     expected: Mark ReturnFalse
 Partition #17: i == i1 and setRequiredNumber(1,2,2)
-    StartTimeAndEndTimeIsTheSame_addWorkingPeriod_part17 input: s = John, i = 2, i1 = 2 expected: AddWorker
+    StartTimeAndEndTimeIsTheSame_addWorkingPeriod_part17
+        input: s = John, i = 2, i1 = 2 expected: AddWorker
 Partition #18: i == i1 and setRequiredNUmber(1,2,2)
-    StartTimeAndEndTimeIsTheSameReturnValue_addWorkingPeriod_part18 input: s = John, i = 2, i1 = 2 expected: ReturnTrue
+    StartTimeAndEndTimeIsTheSameReturnValue_addWorkingPeriod_part18
+        input: s = John, i = 2, i1 = 2 expected: ReturnTrue
 Partition #19: setRequiredNumber(2,2,4)
-    AddSameWorkerMultipleTimes_addWorkingPeriod_part19 input: {s = John, i = 2, i1 = 4}, {s = John, i = 2, i1 = 4}
+    AddSameWorkerMultipleTimes_addWorkingPeriod_part19
+        input: {s = John, i = 2, i1 = 4}, {s = John, i = 2, i1 = 4}
     expected: John added single time
 Partition #20: setRequiredNumber(2,2,4)
-    AddSameWorkerMultipleTimesReturnValue_addWorkingPeriod_part20 input: {s = John, i = 2, i1 = 4}, {s = John, i = 2, i1 = 4}
+    AddSameWorkerMultipleTimesReturnValue_addWorkingPeriod_part20
+        input: {s = John, i = 2, i1 = 4}, {s = John, i = 2, i1 = 4}
     expected: John Added, ReturnFalse on Second add
 
 Border cases: TODO
@@ -88,13 +108,17 @@ Input space: 0 <= starttime <= endtime < size
 Partition #1: starttime < 0
 
 Partition #1: starttime == endtime and setRequiredNumber(1,5,5)
-    AddWorkersForStartTimeEqualToEndTime_workingEmployees_part1 input: s = John, i = 5, i1 = 5
+    AddWorkersForStartTimeEqualToEndTime_workingEmployees_part1
+        input: s = John, i = 5, i1 = 5
     expected: Array containing John
 Partition #2:
-    AddWorkersToLimit_workingEmployees_part2 input: {s = John, i = 4, i1 = 6}, {s = Mark, i = 4, i1 = 5}
+    AddWorkersToLimit_workingEmployees_part2
+        input: {s = John, i = 4, i1 = 6}, {s = Mark, i = 4, i1 = 5}
     expected: Array containing John, Mark
 Partition #3:
-    NoWorkersScheduled_workingEmployees_part3 input: Nothing expected: Return Empty Array
+    NoWorkersScheduled_workingEmployees_part3
+        input: Nothing
+    expected: Return Empty Array
 
 Border cases: TODO
 
