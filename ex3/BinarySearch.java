@@ -19,7 +19,7 @@ public class BinarySearch {
             int index = (right + left) / 2;
             if (array[index] == value)
                 return true;
-            if (array[index] < value)
+            if (array[index] > value)
                 right = index - 1;
             else
                 left = index + 1;
@@ -29,13 +29,15 @@ public class BinarySearch {
     }
 
     public static void main(String[] arg) {
-        int[] array = {1,2,3,4,5,6,7,8};
-        int value = 5 ;
+        int[] array = {1, 2, 3, 4, 5, 6, 7, 8};
+        //int value = 1;
 
-        if (search(array,value))
-            System.out.println("The value " + value + " is in the array.");
-        else {
-            System.out.println("The value " + value + " is not in the array.");
+        for (int i = 0, value = -1; i < array.length+4; i++, value++){
+            if (search(array, value))
+                System.out.println("The value " + value + " is in the array.");
+            else {
+                System.out.println("The value " + value + " is not in the array.");
+            }
         }
     }
 }
