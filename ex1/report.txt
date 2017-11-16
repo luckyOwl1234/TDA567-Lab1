@@ -83,10 +83,18 @@ ensures:
     returns an empty array
   and in either case the schedule is unchanged
 
-Input space: TODO
+Input space: 0 <= starttime <= endtime < size
 
-Partition #1: TODO
-Partition #n: TODO
+Partition #1: starttime < 0
+
+Partition #1: starttime == endtime and setRequiredNumber(1,5,5)
+    AddWorkersForStartTimeEqualToEndTime_workingEmployees_part1 input: s = John, i = 5, i1 = 5
+    expected: Array containing John
+Partition #2:
+    AddWorkersToLimit_workingEmployees_part2 input: {s = John, i = 4, i1 = 6}, {s = Mark, i = 4, i1 = 5}
+    expected: Array containing John, Mark
+Partition #3:
+    NoWorkersScheduled_workingEmployees_part3 input: Nothing expected: Return Empty Array
 
 Border cases: TODO
 
