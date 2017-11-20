@@ -25,8 +25,13 @@ public class Set {
                     break;
                 }
             }
+            if(i == a.size() - 1 && a.get(i) != x){
+                a.add(x);
+            }
         }
-        a.add(x);
+        if(a.size() == 0) {
+            a.add(x);
+        }
     }
 
     public boolean member(int x) {

@@ -19,7 +19,7 @@ public class addWorkingPeriodTests {
     @Test
     public void addWorkingPeriod_AddWorkerWhenNoneIsNeeded_DoNotAdd(){
         work.addWorkingPeriod("John", 2, 4);
-        assertEquals(0, work.readSchedule(2).requiredNumber);
+        assertEquals(0, work.readSchedule(2).workingEmployees.length);
     }
 
     @Test
@@ -29,15 +29,15 @@ public class addWorkingPeriodTests {
 
     @Test
     public void addWorkingPeriod_AddWorkerOnePerson_AddWorker() {
-        work.setRequiredNumber(1, 2, 4);
-        work.addWorkingPeriod("John", 2, 4);
+        work.setRequiredNumber(1, 1, 6);
+        work.addWorkingPeriod("John", 2, 5);
         assertArrayEquals(new String[]{"John"}, work.readSchedule(2).workingEmployees);
     }
 
     @Test
     public void addWorkingPeriod_AddWorkerOnePersonReturnValue_ReturnTrue(){
-        work.setRequiredNumber(1, 2, 4);
-        assertTrue(work.addWorkingPeriod("John", 2, 4));
+        work.setRequiredNumber(1, 1, 6);
+        assertTrue(work.addWorkingPeriod("John", 2, 5));
     }
 
     @Test

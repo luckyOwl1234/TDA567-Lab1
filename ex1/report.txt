@@ -16,7 +16,7 @@ ensures:
         for i between starttime and endtime, workingEmployees contain a string equal to employee and
         the rest of the schedule is unchanged
 
-Input space: s != null, 0 <= i < i1, i < i1 < size
+Input space: s != null, 0 <= i <= i1 < size
 
 Partition #1: No setRequiredNumber
     AddWorkerWhenNoneIsNeeded_addWorkingPeriod_part1
@@ -122,4 +122,5 @@ Partition #3:
 
 Border cases: TODO
 
-Found bugs: TODO
+Found bugs: workingEmployees only return array which contains workers with a work interval that either
+            starts with zero or a endtime of 23.

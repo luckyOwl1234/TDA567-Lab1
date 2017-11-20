@@ -18,32 +18,51 @@ public class insertTest {
     }
 
     @Test
-    public void testInsertDifferentValues() {
+    public void insert_addOneValueIgnoresForLoop_AddValue(){
         set.insert(1);
+        assertArrayEquals(new int[]{1}, set.toArray());
+    }
+
+    @Test
+    public void insert_addOneValueSmallerThanExsistingNumber_AddValue(){
+        set.insert(2);
+        set.insert(1);
+        assertArrayEquals(new int[]{1,2}, set.toArray());
+    }
+
+    @Test
+    public void insert_addValueBiggerThanExsistingNumber_AddValue(){
+        set.insert(1);
+        set.insert(2);
+        assertArrayEquals(new int[]{1,2}, set.toArray());
+    }
+
+    @Test
+    public void insert_addAlreadyExsistingValue_DoNotAddDoubleValue(){
+        set.insert(1);
+        set.insert(1);
+        assertArrayEquals(new int[]{1}, set.toArray());
+    }
+
+    @Test
+    public void insert_addValuesInInverseOrder_AddValues(){
+        set.insert(3);
+        set.insert(2);
+        set.insert(1);
+        assertArrayEquals(correctArray, set.toArray());
+    }
+
+    @Test
+    public void insert_addSameValueAfterArrayAlreadyContainsValues_AddValuesExceptDoubles(){
+        set.insert(1);
+        set.insert(2);
         set.insert(2);
         set.insert(3);
         assertArrayEquals(correctArray, set.toArray());
     }
 
     @Test
-    public void testInsertInverseOrder(){
-        set.insert(3);
-        set.insert(2);
-        set.insert(1);
-        assertArrayEquals(correctArray, set.toArray());
-    }
-
-    @Test
-    public void testInsertSameValues(){
-        set.insert(1);
-        set.insert(2);
-        set.insert(2);
-        set.insert(3);
-        assertArrayEquals(correctArray, set.toArray());
-    }
-
-    @Test
-    public void testInsertEdgeCases(){
+    public void insert_addAllBorderCaseValues_AddValues(){
         set.insert(Integer.MIN_VALUE);
         set.insert(-1);
         set.insert(0);
@@ -53,10 +72,10 @@ public class insertTest {
     }
 
     @Test
-    public void testInsertPsuedorandom() {
-        set.insert(2);
-        set.insert(1);
+    public void insert_addValuesInNotSequentialOrder_AddValues() {
         set.insert(3);
+        set.insert(1);
+        set.insert(2);
         assertArrayEquals(correctArray, set.toArray());
     }
 }
