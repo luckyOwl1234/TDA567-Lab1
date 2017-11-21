@@ -25,11 +25,11 @@ public class Set {
                     break;
                 }
             }
-            if(i == a.size() - 1 && a.get(i) != x){
+            if(i == a.size() - 1 && a.get(i) != x){ //Egen if
                 a.add(x);
             }
         }
-        if(a.size() == 0) {
+        if(a.size() == 0) { //Egen if
             a.add(x);
         }
     }
@@ -51,7 +51,7 @@ public class Set {
         for (int i = 0, j = 0; i < a.size() && j < s.a.size();) {
             if (a.get(i).equals(s.a.get(j))) {
                 a.remove(i);
-                //i++;
+                //i++; //Bug uppstog då man tog bort ett värde i a och samtidigt ökade på i då
                 j++;
             } else {
                 if (a.get(i) < s.a.get(j)) {
