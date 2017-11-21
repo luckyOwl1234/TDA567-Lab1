@@ -8,26 +8,54 @@ import org.junit.Test;
 
 public class sectionTests {
 
-    private Set a;
-    private Set s;
+    private Set arrayWithValuesRemoved;
+    private Set arrayThatRemoves;
 
     @Before
     public void setUp(){
-        a = new Set();
-        s = new Set();
+        arrayWithValuesRemoved = new Set();
+        arrayThatRemoves = new Set();
     }
 
     @Test
-    public void sectionTest(){
-        a.insert(1);
-        a.insert(2);
-        a.insert(3);
+    public void section_EmptyArrays_DoNothing(){
+        arrayWithValuesRemoved.section(arrayThatRemoves);
+        assertArrayEquals(new int[]{}, arrayWithValuesRemoved.toArray());
+    }
 
-        s.insert(3);
-        s.insert(4);
-        s.insert(5);
+    @Test
+    public void section_EffectedArrayEmpty_DoNothing(){
+        arrayThatRemoves.insert(1);
+        arrayWithValuesRemoved.section(arrayThatRemoves);
+        assertArrayEquals(new int[]{}, arrayWithValuesRemoved.toArray());
+    }
 
-        a.section(s);
-        assertArrayEquals(new int[]{1}, a.toArray());
+    @Test
+    public void section_EffectingArrayEmpty_DoNothing(){
+        arrayWithValuesRemoved.insert(1);
+        arrayWithValuesRemoved.section(arrayThatRemoves);
+        assertArrayEquals(new int[]{1}, arrayWithValuesRemoved.toArray());
+    }
+
+    @Test
+    public void section_RemoveValueFromArrayWithOneValue_RemoveValue(){
+        arrayWithValuesRemoved.insert(1);
+        arrayThatRemoves.insert(1);
+        arrayWithValuesRemoved.section(arrayThatRemoves);
+        assertArrayEquals(new int[]{}, arrayWithValuesRemoved.toArray());
+    }
+
+    @Test
+    public void section_RemoveValueInANoneSingleArray_RemoveValue(){
+        arrayWithValuesRemoved.insert(1);
+        arrayWithValuesRemoved.insert(2);
+        arrayWithValuesRemoved.insert(3);
+
+        arrayThatRemoves.insert(2);
+        arrayThatRemoves.insert(3);
+        arrayThatRemoves.insert(5);
+
+        arrayWithValuesRemoved.section(arrayThatRemoves);
+        assertArrayEquals(new int[]{1}, arrayWithValuesRemoved.toArray());
     }
 }
