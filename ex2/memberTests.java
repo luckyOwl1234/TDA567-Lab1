@@ -17,31 +17,34 @@ public class memberTests {
 
 
     @Test
-    public void testMemberEmptyArray(){
-
-        assertEquals(0, set.toArray().length);
-    }
-
-    @Test
-    public void testMemberIn(){
-        set.insert(3);
-        set.insert(1);
-        set.insert(2);
-        assertTrue(set.member(3));
-    }
-
-    @Test
-    public void testMemberNotIn() {
-        set.insert(3);
-        set.insert(1);
-        set.insert(2);
-        assertFalse(set.member(5));
-    }
-
-    @Test
-    public void testMember(){
-        set.insert(3);
+    public void member_EmptyArray_ReturnFalse(){
         assertFalse(set.member(1));
+    }
+
+    @Test
+    public void member_ContainsValue_ReturnTrue(){
+        set.insert(1);
+        assertTrue(set.member(1));
+    }
+
+    @Test
+    public void member_DoNotContainValue_ReturnFalse() {
+        set.insert(1);
+        assertFalse(set.member(2));
+    }
+
+    @Test
+    public void member_DoNotContainValueInverse_ReturnFalse(){
+        set.insert(2);
+        assertFalse(set.member(1));
+    }
+
+    @Test
+    public void member_BranchCoverage_ReturnTrue(){
+        set.insert(1);
+        set.insert(2);
+        set.insert(3);
+        assertTrue(set.member(3));
     }
 
 }
