@@ -13,17 +13,6 @@ public class workingEmployeesTests {
         work = new WorkSchedule(24);
     }
 
-    /*@Test
-    public void workingEmployees_CheckingWorkingEmployeesArrayBelowZero_ReturnEmptyArray(){
-        work.setRequiredNumber(1,0,23);
-        work.addWorkingPeriod("John", 7,17);
-
-        int expected = 0;
-        int actual = work.workingEmployees(-1, -2).length;
-
-        assertEquals(expected, actual);
-    }*/
-
     @Test
     public void workingEmployees_AddWorkersForStartTimeEqualToEndTime_ContainCorrectWorkers(){
         work.setRequiredNumber(2, 5,5);
@@ -56,7 +45,7 @@ public class workingEmployeesTests {
     }
 
     @Test
-    public void workingEmployees_AllWorkersAtDifferentTimes_AllWorkers() {
+    public void workingEmployees_AllWorkersAtDifferentTimes_AllWorkersAdded() {
         work.setRequiredNumber(4, 0, 23);
 
         work.addWorkingPeriod("Alfa", 1,1);

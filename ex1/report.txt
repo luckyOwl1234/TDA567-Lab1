@@ -105,22 +105,31 @@ ensures:
 
 Input space: 0 <= starttime <= endtime < size
 
-Partition #1: starttime < 0
-
 Partition #1: starttime == endtime and setRequiredNumber(1,5,5)
     AddWorkersForStartTimeEqualToEndTime_workingEmployees_part1
         input: s = John, i = 5, i1 = 5
     expected: Array containing John
-Partition #2:
+Partition #2: Added workers to the limit set by setRequiredNumber
     AddWorkersToLimit_workingEmployees_part2
         input: {s = John, i = 4, i1 = 6}, {s = Mark, i = 4, i1 = 5}
     expected: Array containing John, Mark
-Partition #3:
-    NoWorkersScheduled_workingEmployees_part3
-        input: Nothing
-    expected: Return Empty Array
+Partition #3: No workers needed
+    EmptySchedule_workingEmployees_part3
+      input: None
+    expected: ReturnEmptyArray
+Partition #4: setRequiredNumber(4, 0, 23)
+    AllWorkersAtDifferentTimes_workingEmployees_part4
+      input:  {s = Alfa, i = 1, i1 = 1}
+              {s = Bravo, i = 3, i1 = 5}
+              {s = Charlie, i = 5, i1 = 8}
+              {s = Delta, i = 9, i1 = 23}
+    expected: All workers added, Bug found.
+Partition #5: setRequiredNumber(1, 0, 4)
+    AddWorkerInbetweenShifts_workingEmployees_part5
+        input: {s = John, i = 2, i1 = 3}
+    expected: AddWorker
 
 Border cases: TODO
 
 Found bugs: workingEmployees only return array which contains workers with a work interval that either
-            starts with zero or a endtime of 23.
+            starts with zero or ends with 23.
