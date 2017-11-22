@@ -1,0 +1,3 @@
+We made flow charts over the different methods.
+For insert we came to the conclusion that minimum amount of testcases need for
+branch coverage are four tests.
