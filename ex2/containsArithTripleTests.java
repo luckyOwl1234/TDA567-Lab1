@@ -19,9 +19,9 @@ public class containsArithTripleTests {
 
     @Test
     public void containsArithTriple_MinimumValues_ReturnTrue(){
+        set.insert(0);
         set.insert(1);
         set.insert(2);
-        set.insert(3);
 
         assertTrue(set.containsArithTriple());
     }
@@ -29,8 +29,8 @@ public class containsArithTripleTests {
     @Test
     public void containsArithTriple_BadValues_ReturnFalse(){
         set.insert(1);
-        set.insert(3);
-        set.insert(5);
+        set.insert(2);
+        set.insert(4);
 
         assertFalse(set.containsArithTriple());
     }
