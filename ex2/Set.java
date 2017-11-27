@@ -37,17 +37,13 @@ public class Set {
     public boolean member(int x) {
         for (int i = 0; i < a.size(); i++) {
             if (a.get(i) > x) {
-                System.out.println("branch 1");
                 return false;
             } else {
                 if (a.get(i) == x) {
-                    System.out.println("branch 2");
                     return true;
                 }
-                System.out.println("branch 3");
             }
         }
-        System.out.println("branch 4");
         return false;
     }
 
@@ -68,12 +64,28 @@ public class Set {
     }
 
     public boolean containsArithTriple() {
+        if (!(0 < a.size())) {
+            System.out.println("Branch 4");
+        }
+
+
         for (int i = 0; i < a.size(); i++) {
+
+            if (!(0 < i)) {
+                System.out.println("Branch 3");
+            }
+
             for (int j = 0; j < i; j++) {   // <= made the if statement only look at the first element which makes it true
                                             //everytime
-                if (member(2 * a.get(i) - a.get(j))) return true;
+                if (member(2 * a.get(i) - a.get(j))) {
+                    System.out.println("Branch 1");
+                    return true;
+                }
+                System.out.println("Branch 2");
             }
         }
+        System.out.println("Branch 3");
+
         return false;
     }
 }
