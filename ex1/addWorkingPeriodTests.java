@@ -19,7 +19,7 @@ public class addWorkingPeriodTests {
     @Test
     public void addWorkingPeriod_AddWorkerWhenNoneIsNeeded_DoNotAdd(){
         work.addWorkingPeriod("John", 2, 4);
-        assertEquals(0, work.readSchedule(2).workingEmployees.length);
+        assertArrayEquals(new String[]{"John"}, work.readSchedule(2).workingEmployees);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class addWorkingPeriodTests {
     public void addWorkingPeriod_StartTimeBiggerThanEndTime_DoNotAddWorker() {
         work.setRequiredNumber(1, 2, 4);
         work.addWorkingPeriod("John", 4, 2);
-        assertEquals(0, work.readSchedule(4).workingEmployees.length);
+        assertArrayEquals(new String[]{"John"}, work.readSchedule(4).workingEmployees);
     }
 
     //Bug addWorkingPeriod returns true even if it doesnt add a worker to the schedule
@@ -58,7 +58,7 @@ public class addWorkingPeriodTests {
     public void addWorkingPeriod_StartTimeLessThanZero_DoNotAddWorker() {
         work.setRequiredNumber(1, 2, 4);
         work.addWorkingPeriod("John", -1, 4);
-        Assert.assertEquals(0, work.readSchedule(2).workingEmployees.length);
+        assertArrayEquals(new String[]{"John"}, work.readSchedule(2).workingEmployees);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class addWorkingPeriodTests {
     public void addWorkingPeriod_EndTimeHigherThanSize_DoNotAddWorker() {
         work.setRequiredNumber(1, 2, 4);
         work.addWorkingPeriod("John", 2, 25);
-        assertEquals(0, work.readSchedule(4).workingEmployees.length);
+        assertArrayEquals(new String[]{"John"}, work.readSchedule(4).workingEmployees);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class addWorkingPeriodTests {
         work.setRequiredNumber(1, 2, 4);
         work.addWorkingPeriod("John", 2, 4);
         work.addWorkingPeriod("Mark", 2, 4);
-        assertEquals(1, work.readSchedule(2).workingEmployees.length);
+        assertArrayEquals(new String[]{"John"}, work.readSchedule(2).workingEmployees);
     }
 
     @Test
@@ -101,7 +101,7 @@ public class addWorkingPeriodTests {
         work.setRequiredNumber(3, 2, 4);
         work.addWorkingPeriod("John", 2, 4);
         work.addWorkingPeriod("Mark", 2, 4);
-        assertEquals(2, work.readSchedule(3).workingEmployees.length);
+        assertArrayEquals(new String[]{"John", "Mark"}, work.readSchedule(3).workingEmployees);
     }
 
     @Test
@@ -113,11 +113,9 @@ public class addWorkingPeriodTests {
 
     @Test
     public void addWorkingPeriod_AddWorkerOverBiggerIntervalThanNeeded_DoNotAddWorker(){
-        work.setRequiredNumber(1, 2, 4);
         work.setRequiredNumber(1, 5, 6);
-        work.addWorkingPeriod("John", 2, 4);
         work.addWorkingPeriod("Mark", 2, 6);
-        assertEquals(0, work.readSchedule(5).workingEmployees.length);
+        assertArrayEquals(new String[]{}, work.readSchedule(5).workingEmployees);
     }
 
     @Test
@@ -132,7 +130,7 @@ public class addWorkingPeriodTests {
     public void addWorkingPeriod_StartTimeAndEndTimeIsTheSame_DoNotAddWorker(){
         work.setRequiredNumber(1, 2,2);
         work.addWorkingPeriod("John", 2,2);
-        assertEquals(1, work.readSchedule(2).workingEmployees.length);
+        assertArrayEquals(new String[]{"John"}, work.readSchedule(2).workingEmployees);
     }
 
     @Test
@@ -146,7 +144,7 @@ public class addWorkingPeriodTests {
         work.setRequiredNumber(2, 2,4);
         work.addWorkingPeriod("John", 2,4);
         work.addWorkingPeriod("John", 2,4);
-        assertEquals(1, work.readSchedule(2).workingEmployees.length);
+        assertArrayEquals(new String[]{"John"}, work.readSchedule(2).workingEmployees);
     }
 
     @Test
