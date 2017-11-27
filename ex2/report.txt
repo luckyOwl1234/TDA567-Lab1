@@ -1,3 +1,30 @@
+public void insert(int x)
+
+Statement coverage is obtained by following test cases:
+
+insert_addValueSmallerThanExsistingNumber_AddValue()
+insert_addValueBiggerThanExsistingNumber_AddValue()
+
+Branch coverage is obtained by following test case:
+
+insert_addSameValueAfterArrayAlreadyContainsValues_AddValuesExceptDoubles
+
+public void member(int x)
+
+Statement coverage is obtained by following test cases:
+
+member_EmptyArray_ReturnFalse()
+member_ContainsValue_ReturnTrue()
+member_DoNotContainValueInverse_ReturnFalse()
+
+Branch coverage is obtained by following test cases:
+
+member_ContainsValue_ReturnTrue()
+member_DoNotContainValue_ReturnFalse()
+member_DoNotContainValueInverse_ReturnFalse()
+
+
+
 We made flow charts over the different methods.
 For insert we came to the conclusion that minimum amount of testcases need for
 branch coverage are four tests.

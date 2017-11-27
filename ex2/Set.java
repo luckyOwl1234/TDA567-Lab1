@@ -37,13 +37,17 @@ public class Set {
     public boolean member(int x) {
         for (int i = 0; i < a.size(); i++) {
             if (a.get(i) > x) {
+                System.out.println("branch 1");
                 return false;
             } else {
                 if (a.get(i) == x) {
+                    System.out.println("branch 2");
                     return true;
                 }
+                System.out.println("branch 3");
             }
         }
+        System.out.println("branch 4");
         return false;
     }
 

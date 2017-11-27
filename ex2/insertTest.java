@@ -57,8 +57,9 @@ public class insertTest {
         set.insert(1);
         set.insert(2);
         set.insert(2);
+        set.insert(5);
         set.insert(3);
-        assertArrayEquals(correctArray, set.toArray());
+        assertArrayEquals(new int[]{1,2,3,5}/*correctArray*/, set.toArray());
     }
 
     @Test
