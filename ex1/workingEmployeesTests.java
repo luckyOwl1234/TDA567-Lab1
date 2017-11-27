@@ -14,30 +14,30 @@ public class workingEmployeesTests {
     }
 
     @Test
-    public void workingEmployees_AddWorkersForStartTimeEqualToEndTime_ContainCorrectWorkers(){
-        work.setRequiredNumber(2, 5,5);
-        work.addWorkingPeriod("John", 5,5);
+    public void workingEmployees_AddWorkersForStartTimeEqualToEndTime_ContainCorrectWorkers() {
+        work.setRequiredNumber(2, 5, 5);
+        work.addWorkingPeriod("John", 5, 5);
 
         String[] expected = work.readSchedule(5).workingEmployees;
-        String[] actual = work.workingEmployees(5,5);
+        String[] actual = work.workingEmployees(5, 5);
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void workingEmployees_AddWorkersToLimit_ContainCorrectWorkers(){
-        work.setRequiredNumber(2, 4,8);
-        work.addWorkingPeriod("John", 4,6);
-        work.addWorkingPeriod("Mark", 4,5);
+    public void workingEmployees_AddWorkersToLimit_ContainCorrectWorkers() {
+        work.setRequiredNumber(2, 4, 8);
+        work.addWorkingPeriod("John", 4, 6);
+        work.addWorkingPeriod("Mark", 4, 5);
 
-        String[] expected = new String[] {"John", "Mark"};
-        String[] actual = work.workingEmployees(4,6);
+        String[] expected = new String[]{"John", "Mark"};
+        String[] actual = work.workingEmployees(4, 6);
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void workingEmployees_EmptySchedule_ReturnEmptyArray(){
+    public void workingEmployees_EmptySchedule_ReturnEmptyArray() {
         int expected = 0;
         int actual = work.workingEmployees(0, 23).length;
 
@@ -48,13 +48,13 @@ public class workingEmployeesTests {
     public void workingEmployees_AllWorkersAtDifferentTimes_AllWorkersAdded() {
         work.setRequiredNumber(4, 0, 23);
 
-        work.addWorkingPeriod("Alfa", 1,1);
+        work.addWorkingPeriod("Alfa", 1, 1);
         work.addWorkingPeriod("Bravo", 3, 5);
         work.addWorkingPeriod("Charlie", 5, 8);
         work.addWorkingPeriod("Delta", 9, 23);
 
-        String[] expected = new String[] {"Alfa","Bravo","Charlie","Delta"};
-        String[] actual = work.workingEmployees(0,23);
+        String[] expected = new String[]{"Alfa", "Bravo", "Charlie", "Delta"};
+        String[] actual = work.workingEmployees(0, 23);
 
         assertArrayEquals(expected, actual);
     }
@@ -65,10 +65,9 @@ public class workingEmployeesTests {
 
         work.addWorkingPeriod("John", 2, 3);
 
-        String[] expected = new String[] {"John"};
+        String[] expected = new String[]{"John"};
         String[] actual = work.workingEmployees(2, 3);
 
         assertArrayEquals(expected, actual);
     }
-
 }

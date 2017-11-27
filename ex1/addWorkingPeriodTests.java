@@ -1,11 +1,8 @@
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Arrays;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,20 +28,20 @@ public class addWorkingPeriodTests {
     }
 
     @Test
-    public void addWorkingPeriod_AddWorkerWhenNoneIsNeeded_DoNotAdd(){
+    public void addWorkingPeriod_AddWorkerWhenNoneIsNeeded_DoNotAdd() {
         work.addWorkingPeriod("John", 2, 4);
 
         // For every hour, 0 to size-1 (0 to 23 in our case)
         for (int i = 0; i < size; i++) {
             // Ensure no one was added to any hour
-            if ( !Arrays.equals(work.readSchedule(i).workingEmployees, empty) ) {
+            if (!Arrays.equals(work.readSchedule(i).workingEmployees, empty)) {
                 fail();
             }
         }
     }
 
     @Test
-    public void addWorkingPeriod_AddWorkerWhenNoneIsNeededReturnValue_ReturnFalse(){
+    public void addWorkingPeriod_AddWorkerWhenNoneIsNeededReturnValue_ReturnFalse() {
         assertFalse(work.addWorkingPeriod("John", 2, 4));
     }
 
@@ -55,14 +52,16 @@ public class addWorkingPeriodTests {
 
         for (int i = 0; i < size; i++) {
             // 0..1..[2..3..4..5]..6..7..
-            if ( i >= 2 && i <= 5 ) {
-                if ( !Arrays.equals(work.readSchedule(i).workingEmployees, john)) {
+            if (i >= 2 && i <= 5) {
+                if (!Arrays
+                    .equals(work.readSchedule(i).workingEmployees, john)) {
                     fail();
                 }
             }
             // [0..1]..2..3..4..5..[6..7..
             else {
-                if ( !Arrays.equals(work.readSchedule(i).workingEmployees, empty)) {
+                if (!Arrays
+                    .equals(work.readSchedule(i).workingEmployees, empty)) {
                     fail();
                 }
             }
@@ -70,7 +69,7 @@ public class addWorkingPeriodTests {
     }
 
     @Test
-    public void addWorkingPeriod_AddWorkerOnePersonReturnValue_ReturnTrue(){
+    public void addWorkingPeriod_AddWorkerOnePersonReturnValue_ReturnTrue() {
         work.setRequiredNumber(1, 1, 6);
         assertTrue(work.addWorkingPeriod("John", 2, 5));
     }
@@ -81,7 +80,7 @@ public class addWorkingPeriodTests {
         work.addWorkingPeriod("John", 4, 2);
 
         for (int i = 0; i < size; i++) {
-            if ( !Arrays.equals(work.readSchedule(i).workingEmployees, empty) ) {
+            if (!Arrays.equals(work.readSchedule(i).workingEmployees, empty)) {
                 fail();
             }
         }
@@ -89,7 +88,7 @@ public class addWorkingPeriodTests {
 
     // BUG: addWorkingPeriod returns true even if it doesnt add a worker to the schedule
     @Test
-    public void addWorkingPeriod_StartTimeBiggerThanEndTimeReturnValue_ReturnFalse(){
+    public void addWorkingPeriod_StartTimeBiggerThanEndTimeReturnValue_ReturnFalse() {
         work.setRequiredNumber(1, 2, 4);
         assertFalse(work.addWorkingPeriod("John", 4, 2));
     }
@@ -100,7 +99,7 @@ public class addWorkingPeriodTests {
         work.addWorkingPeriod("John", -1, 4);
 
         for (int i = 0; i < size; i++) {
-            if ( !Arrays.equals(work.readSchedule(i).workingEmployees, empty) ) {
+            if (!Arrays.equals(work.readSchedule(i).workingEmployees, empty)) {
                 fail();
             }
         }
@@ -118,7 +117,7 @@ public class addWorkingPeriodTests {
         work.addWorkingPeriod("John", 2, 25);
 
         for (int i = 0; i < size; i++) {
-            if ( !Arrays.equals(work.readSchedule(i).workingEmployees, empty) ) {
+            if (!Arrays.equals(work.readSchedule(i).workingEmployees, empty)) {
                 fail();
             }
         }
@@ -138,13 +137,14 @@ public class addWorkingPeriodTests {
         work.addWorkingPeriod("Mark", 2, 4);
 
         for (int i = 0; i < size; i++) {
-            if ( i >= 2 && i <= 4 ) {
-                if ( !Arrays.equals(work.readSchedule(i).workingEmployees, john)) {
+            if (i >= 2 && i <= 4) {
+                if (!Arrays
+                    .equals(work.readSchedule(i).workingEmployees, john)) {
                     fail();
                 }
-            }
-            else {
-                if ( !Arrays.equals(work.readSchedule(i).workingEmployees, empty)) {
+            } else {
+                if (!Arrays
+                    .equals(work.readSchedule(i).workingEmployees, empty)) {
                     fail();
                 }
             }
@@ -165,13 +165,14 @@ public class addWorkingPeriodTests {
         work.addWorkingPeriod("Mark", 2, 4);
 
         for (int i = 0; i < size; i++) {
-            if ( i >= 2 && i <= 4 ) {
-                if ( !Arrays.equals(work.readSchedule(i).workingEmployees, johnMark)) {
+            if (i >= 2 && i <= 4) {
+                if (!Arrays
+                    .equals(work.readSchedule(i).workingEmployees, johnMark)) {
                     fail();
                 }
-            }
-            else {
-                if ( !Arrays.equals(work.readSchedule(i).workingEmployees, empty)) {
+            } else {
+                if (!Arrays
+                    .equals(work.readSchedule(i).workingEmployees, empty)) {
                     fail();
                 }
             }
@@ -186,19 +187,19 @@ public class addWorkingPeriodTests {
     }
 
     @Test
-    public void addWorkingPeriod_AddWorkerOverBiggerIntervalThanNeeded_DoNotAddWorker(){
+    public void addWorkingPeriod_AddWorkerOverBiggerIntervalThanNeeded_DoNotAddWorker() {
         work.setRequiredNumber(1, 5, 6);
         work.addWorkingPeriod("Mark", 2, 6);
 
         for (int i = 0; i < size; i++) {
-            if ( !Arrays.equals(work.readSchedule(i).workingEmployees, empty) ) {
+            if (!Arrays.equals(work.readSchedule(i).workingEmployees, empty)) {
                 fail();
             }
         }
     }
 
     @Test
-    public void addWorkingPeriod_AddWorkerOverBiggerIntervalThanNeededReturnValue_ReturnFalse(){
+    public void addWorkingPeriod_AddWorkerOverBiggerIntervalThanNeededReturnValue_ReturnFalse() {
         work.setRequiredNumber(1, 2, 4);
         work.setRequiredNumber(1, 5, 6);
         work.addWorkingPeriod("John", 2, 4);
@@ -206,19 +207,19 @@ public class addWorkingPeriodTests {
     }
 
     @Test
-    public void addWorkingPeriod_StartTimeAndEndTimeIsTheSame_AddWorker(){
+    public void addWorkingPeriod_StartTimeAndEndTimeIsTheSame_AddWorker() {
         work.setRequiredNumber(1, 2, 2);
         work.addWorkingPeriod("John", 2, 2);
 
-
         for (int i = 0; i < size; i++) {
-            if ( i == 2 ) {
-                if ( !Arrays.equals(work.readSchedule(i).workingEmployees, john)) {
+            if (i == 2) {
+                if (!Arrays
+                    .equals(work.readSchedule(i).workingEmployees, john)) {
                     fail();
                 }
-            }
-            else {
-                if ( !Arrays.equals(work.readSchedule(i).workingEmployees, empty)) {
+            } else {
+                if (!Arrays
+                    .equals(work.readSchedule(i).workingEmployees, empty)) {
                     fail();
                 }
             }
@@ -226,25 +227,26 @@ public class addWorkingPeriodTests {
     }
 
     @Test
-    public void addWorkingPeriod_StartTimeAndEndTimeIsTheSameReturnValue_ReturnTrue(){
-        work.setRequiredNumber(1, 2,2);
-        assertTrue(work.addWorkingPeriod("John", 2,2));
+    public void addWorkingPeriod_StartTimeAndEndTimeIsTheSameReturnValue_ReturnTrue() {
+        work.setRequiredNumber(1, 2, 2);
+        assertTrue(work.addWorkingPeriod("John", 2, 2));
     }
 
     @Test
-    public void addWorkingPeriod_AddSameWorkerMultipleTimes_DoNotAddSecondWorker(){
+    public void addWorkingPeriod_AddSameWorkerMultipleTimes_DoNotAddSecondWorker() {
         work.setRequiredNumber(2, 2, 4);
         work.addWorkingPeriod("John", 2, 4);
         work.addWorkingPeriod("John", 2, 4);
 
         for (int i = 0; i < size; i++) {
-            if ( i >= 2 && i <= 4 ) {
-                if ( !Arrays.equals(work.readSchedule(i).workingEmployees, john)) {
+            if (i >= 2 && i <= 4) {
+                if (!Arrays
+                    .equals(work.readSchedule(i).workingEmployees, john)) {
                     fail();
                 }
-            }
-            else {
-                if ( !Arrays.equals(work.readSchedule(i).workingEmployees, empty)) {
+            } else {
+                if (!Arrays
+                    .equals(work.readSchedule(i).workingEmployees, empty)) {
                     fail();
                 }
             }
@@ -252,9 +254,9 @@ public class addWorkingPeriodTests {
     }
 
     @Test
-    public void addWorkingPeriod_AddSameWorkerMultipleTimesReturnValue_ReturnFalse(){
-        work.setRequiredNumber(2, 2,4);
-        work.addWorkingPeriod("John", 2,4);
-        assertFalse(work.addWorkingPeriod("John", 2,4));
+    public void addWorkingPeriod_AddSameWorkerMultipleTimesReturnValue_ReturnFalse() {
+        work.setRequiredNumber(2, 2, 4);
+        work.addWorkingPeriod("John", 2, 4);
+        assertFalse(work.addWorkingPeriod("John", 2, 4));
     }
 }
