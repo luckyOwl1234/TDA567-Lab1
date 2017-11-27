@@ -16,7 +16,7 @@ ensures:
         for i between starttime and endtime, workingEmployees contain a string equal to employee and
         the rest of the schedule is unchanged
 
-Input space: s != null, 0 <= i <= i1 < size
+Input space: s != null, 0 <= starttime <= endtime < size
 
 Partition #1: No setRequiredNumber
     AddWorkerWhenNoneIsNeeded_addWorkingPeriod_part1
@@ -26,9 +26,9 @@ Partition #2: No setRequiredNumber
     AddWorkerWhenNoneIsNeededReturnValue_addWorkingPeriod_part2
         input: work.addWorkingPeriod("John", 2, 4), expected: ReturnFalse
 
-Partition #3: i < i1 and setRequiredNumber(1,2,4)
+Partition #3: starttime < endtime and setRequiredNumber(1,2,4)
     AddOnePerson_addWorkingPeriod_part3
-        input: s = John, i = 2, i1 = 4, expected: AddWorker
+        input: work.addWorkingPeriod("John", 2, 5), expected: AddWorker
 
 Partition #4: i < i1 and setRequiredNumber(1,2,4)
     AddWorkerOnePersonReturnValue_addWorkingPeriod_part4

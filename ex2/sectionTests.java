@@ -60,7 +60,7 @@ public class sectionTests {
     }
 
     @Test
-    public void section_InvokingObjectValueLargerThanParameter_RemoveValue() {
+    public void section_InvokingObjectValueLargerThanParameter_DoNotRemoveValue() {
         arrayWithValuesRemoved.insert(2);
         arrayThatRemoves.insert(1);
 
