@@ -21,21 +21,21 @@ public class insertTest {
     }
 
     @Test
-    public void insert_addOneValueSmallerThanExsistingNumber_AddValue() {
+    public void insert_addOneValueSmallerThanExistingNumber_AddValue() {
         set.insert(2);
         set.insert(1);
         assertArrayEquals(new int[]{1, 2}, set.toArray());
     }
 
     @Test
-    public void insert_addValueBiggerThanExsistingNumber_AddValue() {
+    public void insert_addValueBiggerThanExistingNumber_AddValue() {
         set.insert(1);
         set.insert(2);
         assertArrayEquals(new int[]{1, 2}, set.toArray());
     }
 
     @Test
-    public void insert_addAlreadyExsistingValue_DoNotAddDoubleValue() {
+    public void insert_addAlreadyExistingValue_DoNotAddDoubleValue() {
         set.insert(1);
         set.insert(1);
         assertArrayEquals(new int[]{1}, set.toArray());
