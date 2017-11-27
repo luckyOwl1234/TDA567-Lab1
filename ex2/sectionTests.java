@@ -58,4 +58,13 @@ public class sectionTests {
         arrayWithValuesRemoved.section(arrayThatRemoves);
         assertArrayEquals(new int[]{1}, arrayWithValuesRemoved.toArray());
     }
+
+    @Test
+    public void section_InvokingObjectValueLargerThanParameter_RemoveValue() {
+        arrayWithValuesRemoved.insert(2);
+        arrayThatRemoves.insert(1);
+
+        arrayWithValuesRemoved.section(arrayThatRemoves);
+        assertArrayEquals(new int[]{2}, arrayWithValuesRemoved.toArray());
+    }
 }
