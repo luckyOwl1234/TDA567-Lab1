@@ -11,7 +11,7 @@ class LimitedStack{
       predicate Valid()
       reads this;
       {
-            arr != null && 0 < capacity &&  arr.Length == capacity - 1 && -1 <= top < capacity 
+            arr != null && 0 < capacity &&  arr.Length == capacity && -1 <= top < arr.Length
       }
 
       predicate Empty()
@@ -25,7 +25,7 @@ class LimitedStack{
       {
             top == capacity - 1
       }
-     
+
       method Init(c : int)
       modifies this;
       requires c > 0
@@ -41,10 +41,10 @@ class LimitedStack{
       }
 
 
-     
+
       method isEmpty() returns (res : bool)
       requires Valid()
-      ensures res == Empty()   
+      ensures res == Empty()
       {
             return top == -1;
       }
@@ -53,30 +53,34 @@ class LimitedStack{
 
       // Returns the top element of the stack, without removing it.
       method Peek() returns (elem : int)
-      requires Valid()  
+      requires Valid()
+      requires !Empty()
       {
             return arr[top];
       }
 
-
-/*
-      // Pushed an element to the top of a (non full) stack. 
+      // Pushes an element to the top of a (non full) stack.
       method Push(elem : int)
+
+      modifies this;
+      modifies arr;
+
       requires Valid()
       requires !Full()
       {
-        
+            top := top + 1;
+            arr[top] := elem;
       }
-*/
+
       // Pops the top element off the stack.
-/*  
+/*
       method Pop() returns (elem : int)
-      
+
       {
-        
+
       }
  */
- 
+
       method Shift()
       requires Valid() && !Empty();
       ensures Valid();
@@ -100,21 +104,21 @@ class LimitedStack{
 /*
       //Push onto full stack, oldest element is discarded.
       method Push2(elem : int)
-      
+
       {
-        
+
       }
 */
 
 /*
 
-// When you are finished,  all the below assertions should be provable. 
+// When you are finished,  all the below assertions should be provable.
 // Feel free to add extra ones as well.
       method Main(){
            var s := new LimitedStack;
            s.Init(3);
 
-           assert s.Empty() && !s.Full(); 
+           assert s.Empty() && !s.Full();
 
            s.Push(27);
            assert !s.Empty();
@@ -128,7 +132,7 @@ class LimitedStack{
            assert s.Full();
 
            var e2 := s.Pop();
-           assert e2 == 9 && !s.Full(); 
+           assert e2 == 9 && !s.Full();
            assert s.arr[0] == 5;
 
            s.Push(e2);
@@ -137,7 +141,7 @@ class LimitedStack{
            var e3 := s.Peek();
            assert e3 == 99;
            assert s.arr[0] == 32;
-                     
+
        }
 */
 }
