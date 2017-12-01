@@ -58,7 +58,7 @@ class LimitedStack{
       // Pushes an element to the top of a (non full) stack.
       method Push(elem : int)
 
-      modifies this.top;
+      modifies this`top;
       modifies this.arr;
 
       requires Valid() && !Full();
@@ -69,7 +69,7 @@ class LimitedStack{
 
       // Pops the top element off the stack.
       method Pop() returns (elem : int)
-      modifies this.top, this.arr;
+      modifies this`top, this.arr;
 
       requires Valid() && !Empty();
       {
@@ -101,7 +101,7 @@ class LimitedStack{
 
       //Push onto full stack, oldest element is discarded.
       method Push2(elem : int)
-      modifies this, arr;
+      modifies this`top, this.arr;
       requires Valid() && !Empty();
       ensures !Empty();
       ensures Valid();
