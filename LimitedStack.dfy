@@ -11,7 +11,7 @@ class LimitedStack{
       predicate Valid()
       reads this;
       {
-            arr != null && 0 < capacity &&  arr.Length == capacity && -1 <= top < arr.Length
+            arr != null && 0 < capacity && arr.Length == capacity && -1 <= top && top < arr.Length
       }
 
       predicate Empty()
@@ -34,13 +34,12 @@ class LimitedStack{
       // Additional post-condition to be given here!
       ensures capacity == c
       ensures top == -1
+      ensures arr.Length == capacity;
       {
         capacity := c;
         arr := new int[c];
         top := -1;
       }
-
-
 
       method isEmpty() returns (res : bool)
       requires Valid()
@@ -49,12 +48,9 @@ class LimitedStack{
             return top == -1;
       }
 
-
-
       // Returns the top element of the stack, without removing it.
       method Peek() returns (elem : int)
-      requires Valid()
-      requires !Empty()
+      requires Valid() && !Empty();
       {
             return arr[top];
       }
@@ -62,24 +58,25 @@ class LimitedStack{
       // Pushes an element to the top of a (non full) stack.
       method Push(elem : int)
 
-      modifies this;
-      modifies arr;
+      modifies this.top;
+      modifies this.arr;
 
-      requires Valid()
-      requires !Full()
+      requires Valid() && !Full();
       {
             top := top + 1;
             arr[top] := elem;
       }
 
       // Pops the top element off the stack.
-/*
       method Pop() returns (elem : int)
+      modifies this.top, this.arr;
 
+      requires Valid() && !Empty();
       {
-
+            elem := arr[top];
+            top := top - 1;
+            return elem;
       }
- */
 
       method Shift()
       requires Valid() && !Empty();
@@ -101,16 +98,18 @@ class LimitedStack{
         top := top - 1;
       }
 
-/*
+
       //Push onto full stack, oldest element is discarded.
       method Push2(elem : int)
-
+      modifies this, arr;
+      requires Valid() && !Empty();
+      ensures !Empty();
+      ensures Valid();
       {
-
+            Shift();
+            top := top + 1;
+            arr[top] := elem;
       }
-*/
-
-/*
 
 // When you are finished,  all the below assertions should be provable.
 // Feel free to add extra ones as well.
@@ -143,5 +142,4 @@ class LimitedStack{
            assert s.arr[0] == 32;
 
        }
-*/
 }
