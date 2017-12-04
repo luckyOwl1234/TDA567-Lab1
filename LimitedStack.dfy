@@ -51,17 +51,23 @@ class LimitedStack{
       // Returns the top element of the stack, without removing it.
       method Peek() returns (elem : int)
       requires Valid() && !Empty();
+      ensures top == old(top);
+      ensures Valid();
+      ensures !Empty();
       {
             return arr[top];
       }
 
       // Pushes an element to the top of a (non full) stack.
       method Push(elem : int)
-
       modifies this`top;
       modifies this.arr;
-
       requires Valid() && !Full();
+      ensures Valid();
+      ensures !Empty();
+      ensures forall i : int :: 0 <= i < capacity ==> arr[i] == old(arr[i]);
+      ensures top == old(top) + 1;
+      ensures arr[top] == elem;
       {
             top := top + 1;
             arr[top] := elem;
@@ -69,9 +75,13 @@ class LimitedStack{
 
       // Pops the top element off the stack.
       method Pop() returns (elem : int)
-      modifies this`top, this.arr;
+      modifies this`top;
 
       requires Valid() && !Empty();
+      ensures Valid();
+      ensures !Full();
+      ensures elem == old(arr[top]);
+      ensures top == old(top) - 1;
       {
             elem := arr[top];
             top := top - 1;
@@ -102,9 +112,11 @@ class LimitedStack{
       //Push onto full stack, oldest element is discarded.
       method Push2(elem : int)
       modifies this`top, this.arr;
-      requires Valid() && !Empty();
+      requires Valid();
       ensures !Empty();
       ensures Valid();
+      ensures elem == arr[top];
+      ensures top == old(top) + 1;
       {
             Shift();
             top := top + 1;
@@ -124,7 +136,7 @@ class LimitedStack{
 
            var e := s.Pop();
            assert e == 27;
-
+/*
            s.Push(5);
            s.Push(32);
            s.Push(9);
@@ -140,6 +152,6 @@ class LimitedStack{
            var e3 := s.Peek();
            assert e3 == 99;
            assert s.arr[0] == 32;
-
+*/
        }
 }
