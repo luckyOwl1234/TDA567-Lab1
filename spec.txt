@@ -18,7 +18,8 @@
 
 
     4a.
-      sortArray(a : Sequenc)
+      sortArray(a : Array)
       requires a != null;
 
 
+      ensures forall i : int :: 0 <= i < a.Length ==> a[i] <= a[i+1];
