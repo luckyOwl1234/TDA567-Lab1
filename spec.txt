@@ -22,4 +22,4 @@
       requires a != null;
 
 
-      ensures forall i : int :: 0 <= i < a.Length ==> a[i] <= a[i+1];
+      ensures forall i, j : int :: 0 <= j < i < a.Length ==> a[j] <= a[i];
