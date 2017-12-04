@@ -112,20 +112,26 @@ class LimitedStack{
       //Push onto full stack, oldest element is discarded.
       method Push2(elem : int)
       modifies this`top, this.arr;
-      requires Valid();
+      requires Valid() && !Empty();
       ensures !Empty();
       ensures Valid();
-      ensures elem == arr[top];
-      ensures top == old(top) + 1;
+      ensures arr[top] == elem;
+      ensures if !Full() then top == old(top) + 1
+        else top == old(top)
       {
-            Shift();
-            top := top + 1;
-            arr[top] := elem;
+            if(top != arr.Length){
+               top := top + 1;
+               arr[top] := elem;
+            } else {
+              Shift();
+              arr[top] := elem;
+            }
+
       }
 
 // When you are finished,  all the below assertions should be provable.
 // Feel free to add extra ones as well.
-      method Main(){
+/*      method Main(){
            var s := new LimitedStack;
            s.Init(3);
 
@@ -136,7 +142,7 @@ class LimitedStack{
 
            var e := s.Pop();
            assert e == 27;
-/*
+
            s.Push(5);
            s.Push(32);
            s.Push(9);
@@ -152,6 +158,6 @@ class LimitedStack{
            var e3 := s.Peek();
            assert e3 == 99;
            assert s.arr[0] == 32;
-*/
-       }
+
+       }*/
 }
