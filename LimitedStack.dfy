@@ -1,5 +1,7 @@
 1. Specifying LimitedStack
 
+
+
 // A LIFO queue (aka a stack) with limited capacity.
 class LimitedStack{
 
@@ -52,6 +54,7 @@ class LimitedStack{
       method Peek() returns (elem : int)
       requires Valid() && !Empty();
       ensures top == old(top);
+      ensures elem == arr[top];
       ensures Valid();
       ensures !Empty();
       {
@@ -153,6 +156,7 @@ class LimitedStack{
 
            var e2 := s.Pop();
            assert e2 == 9 && !s.Full();
+
            assert s.arr[0] == 5;
 
            s.Push(e2);
@@ -161,6 +165,5 @@ class LimitedStack{
            var e3 := s.Peek();
            assert e3 == 99;
            assert s.arr[0] == 32;
-
        }
 }
