@@ -65,7 +65,7 @@ class LimitedStack{
       requires Valid() && !Full();
       ensures Valid();
       ensures !Empty();
-      ensures forall i : int :: 0 <= i < capacity ==> arr[i] == old(arr[i]);
+      ensures forall i : int :: 0 <= i < top ==> arr[i] == old(arr[i]);
       ensures top == old(top) + 1;
       ensures arr[top] == elem;
       {
@@ -116,14 +116,17 @@ class LimitedStack{
       ensures !Empty();
       ensures Valid();
       ensures arr[top] == elem;
-      ensures if !Full() then top == old(top) + 1
-        else top == old(top)
+      /*ensures if !Full() then top == old(top) + 1
+        else top == old(top)*/
+      ensures !Full() ==> top == old(top) + 1;
+      //ensures Full() ==> top == old(top);*/
       {
-            if(top != arr.Length){
+            if(top < arr.Length - 1){
                top := top + 1;
                arr[top] := elem;
             } else {
               Shift();
+              top := top + 1;
               arr[top] := elem;
             }
 
@@ -131,7 +134,7 @@ class LimitedStack{
 
 // When you are finished,  all the below assertions should be provable.
 // Feel free to add extra ones as well.
-/*      method Main(){
+     method Main(){
            var s := new LimitedStack;
            s.Init(3);
 
@@ -159,5 +162,5 @@ class LimitedStack{
            assert e3 == 99;
            assert s.arr[0] == 32;
 
-       }*/
+       }
 }
