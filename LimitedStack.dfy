@@ -83,6 +83,7 @@ class LimitedStack{
       requires Valid() && !Empty();
       ensures Valid();
       ensures !Full();
+      ensures forall i : int :: 0 <= i < top ==> arr[i] == old(arr[i]);
       ensures elem == old(arr[top]);
       ensures top == old(top) - 1;
       {
@@ -119,8 +120,8 @@ class LimitedStack{
       ensures !Empty();
       ensures Valid();
       ensures arr[top] == elem;
-      /*ensures if !Full() then top == old(top) + 1
-        else top == old(top)*/
+      ensures !Full() ==> forall i : int :: 0 <= i < top ==> arr[i] == old(arr[i]);
+      ensures Full() ==> forall i : int :: o <= i < top ==> arr[i] == old(arr[i+1]);
       ensures !Full() ==> top == old(top) + 1;
       //ensures Full() ==> top == old(top);*/
       {

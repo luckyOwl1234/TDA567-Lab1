@@ -1,5 +1,6 @@
 // 2. Specifying a sorting algorithm
 
+    1a.
     predicate sorted(s: seq<int>)
     {
         forall j, k :: 0 <= j < k < |s| ==> s[j] <= s[k]
@@ -15,6 +16,16 @@
 
 
 
+    3a.
+      The predicate evaluates if the two sequences have the same values and if the amount of the
+      different values are the same.
+
+      Example:  (1,2,2,3) is the same as (2,1,3,2) because you have the same amount of all the
+      individuale values
+      Example:  (1,1) is not the same as (1) because in the first one you have two ones and in
+      the latter only one one
+
+    3b.
 
 
     4a.
