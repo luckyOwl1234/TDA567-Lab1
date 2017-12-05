@@ -6,7 +6,7 @@
         forall j, k :: 0 <= j < k < |s| ==> s[j] <= s[k]
     }
 
-    ghost method SortedSequence(s: seq<int>)
+
     
 
     predicate sortedTwo(s: seq<int>)
@@ -14,23 +14,32 @@
         0 < |s| ==> (forall i :: 0 < i < |s| ==> s[0] <= s[i]) && sortedTwo(s[1..])
     }
 
+    ghost method SortedSequence(s: seq<int>)
+    ensures sorted();
+
 
 
     3a.
-      The predicate evaluates if the two sequences have the same values and if the amount of the
-      different values are the same.
+      The predicate evaluates if the two sequences have the same values and if the amount of each
+      value are the same.
 
       Example:  (1,2,2,3) is the same as (2,1,3,2) because you have the same amount of all the
-      individuale values
-      Example:  (1,1) is not the same as (1) because in the first one you have two ones and in
-      the latter only one one
+      individuale values.
+      Example:  (1,1) is not the same as (1) because in the first one you have two ones and
+      the later only has one, one.
 
     3b.
+      predicate p2(a : seq, b : seq){
+          forall i : int :: 0 <= i < a.Length ==> countNumbers(a, a[i] == countNumbers(b, a[i]));
+      }
 
+      function countNumbers(s : seq, value : int) : int{
+
+      }
 
     4a.
       sortArray(a : Array)
       requires a != null;
-
-
       ensures forall i, j : int :: 0 <= j < i < a.Length ==> a[j] <= a[i];
+
+      modifies a;
