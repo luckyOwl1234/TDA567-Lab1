@@ -1,7 +1,5 @@
 1. Specifying LimitedStack
 
-
-
 // A LIFO queue (aka a stack) with limited capacity.
 class LimitedStack{
 
@@ -79,7 +77,6 @@ class LimitedStack{
       // Pops the top element off the stack.
       method Pop() returns (elem : int)
       modifies this`top;
-
       requires Valid() && !Empty();
       ensures Valid();
       ensures !Full();
@@ -120,10 +117,10 @@ class LimitedStack{
       ensures !Empty();
       ensures Valid();
       ensures arr[top] == elem;
-      ensures !Full() ==> forall i : int :: 0 <= i < top ==> arr[i] == old(arr[i]);
-      ensures Full() ==> forall i : int :: o <= i < top ==> arr[i] == old(arr[i+1]);
-      ensures !Full() ==> top == old(top) + 1;
-      //ensures Full() ==> top == old(top);*/
+      ensures old(!Full()) ==> forall i : int :: 0 <= i < top ==> arr[i] == old(arr[i]);
+      ensures old(Full()) ==> forall i : int :: 0 <= i < top ==> arr[i] == old(arr[i+1]);
+      ensures old(!Full()) ==> top == old(top) + 1;
+      ensures old(Full()) ==> top == old(top);
       {
             if(top < arr.Length - 1){
                top := top + 1;
