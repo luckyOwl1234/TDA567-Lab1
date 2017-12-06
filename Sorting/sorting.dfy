@@ -1,18 +1,13 @@
-// 2. Specifying a sorting algorithm
-
-    1a.
       predicate sorted(s: seq<int>)
       {
         forall j, k :: 0 <= j < k < |s| ==> s[j] <= s[k]
       }
 
-    1b.
       predicate sortedTwo(s: seq<int>)
       {
         0 < |s| ==> (forall i :: 0 < i < |s| ==> s[0] <= s[i]) && sortedTwo(s[1..])
       }
 
-    2a.
       ghost method sortedLemma(s: seq<int>)
       requires sorted(s);
       ensures sortedTwo(s);
@@ -23,33 +18,20 @@
       ensures sorted(s);
       {}
 
-    2b.
-
-
-    3a.
-      The predicate evaluates if the two sequences have the same values and if the amount of each
-      value are the same.
-
-      Example:  (1,2,2,3) is the same as (2,1,3,2) because you have the same amount of all the
-      individuale values. One 1, two 2:s, one 3.
-      Example:  (1,1) is not the same as (1) because in the first one you have two 1:s and
-      the later only has one 1.
-
-    3b.
       predicate p2(a : seq<int>, b : seq<int>){
           forall i : int :: 0 < i < |a| ==> countNumbers(a, a[i]) == countNumbers(b, a[i])
       }
 
       function countNumbers(s : seq<int>, value : int) : int
       {
-          if |s| == 0 then 0 else countNumbers(s[1..], value)
+          if |s| == 0 then 0
+          else if s[0] == value then 1 + countNumbers(s[1..], value)
+          else countNumbers(s[1..], value)
       }
 
-    4a.
       sortArray(a : Array<int>)
       requires a != null;
       ensures forall i, j : int :: 0 <= j < i < a.Length ==> a[j] <= a[i];
-
       modifies a;
       {
 
