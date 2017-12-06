@@ -29,12 +29,13 @@
       the later only has one, one.
 
     3b.
-      predicate p2(a : seq, b : seq){
-          forall i : int :: 0 <= i < a.Length ==> countNumbers(a, a[i] == countNumbers(b, a[i]));
+      predicate p2(a : seq<int>, b : seq<int>){
+          forall i : int :: 0 < i < |a| ==> countNumbers(a, a[i]) == countNumbers(b, a[i])
       }
 
-      function countNumbers(s : seq, value : int) : int{
-
+      function countNumbers(s : seq<int>, value : int) : int
+      {
+          if |s| == 0 then 0 else countNumbers(s[1..], value)
       }
 
     4a.
@@ -43,3 +44,35 @@
       ensures forall i, j : int :: 0 <= j < i < a.Length ==> a[j] <= a[i];
 
       modifies a;
+
+
+
+
+
+
+      -------------------------------------------------------------
+
+
+           predicate p2(a : seq<int>, b : seq<int>){
+                forall i :: 0 < i < |a| ==> countNumber(a[i],a) == countNumber(a[i],b)
+            }
+
+           function countNumber(val : int, s : seq<int>) : int
+      {
+        if |s| == 0 then 0 else
+        if val == s[0] then countNumber(val,s[1..]) else countNumber(val,s[1..])
+
+
+
+
+
+        predicate p2(a : seq<int>, b : seq<int>)
+      {
+          forall i :: 0 < i < |a| ==> Count(a[i],a) == Count(a[i],b)
+      }
+
+      function Count(val : int, s : seq<int>) : int
+      {
+        if |s| == 0 then 0 else
+        if val == s[0] then Count(val, s[1..]) else Count(val, s[1..])
+      }

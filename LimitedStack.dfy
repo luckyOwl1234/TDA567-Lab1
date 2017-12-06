@@ -113,7 +113,7 @@ class LimitedStack{
       //Push onto full stack, oldest element is discarded.
       method Push2(elem : int)
       modifies this`top, this.arr;
-      requires Valid() && !Empty();
+      requires Valid();
       ensures !Empty();
       ensures Valid();
       ensures arr[top] == elem;
