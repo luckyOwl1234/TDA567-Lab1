@@ -1,22 +1,29 @@
 // 2. Specifying a sorting algorithm
 
     1a.
-    predicate sorted(s: seq<int>)
-    {
+      predicate sorted(s: seq<int>)
+      {
         forall j, k :: 0 <= j < k < |s| ==> s[j] <= s[k]
-    }
+      }
 
-
-    
-
-    predicate sortedTwo(s: seq<int>)
-    {
+    1b.
+      predicate sortedTwo(s: seq<int>)
+      {
         0 < |s| ==> (forall i :: 0 < i < |s| ==> s[0] <= s[i]) && sortedTwo(s[1..])
-    }
+      }
 
-    ghost method SortedSequence(s: seq<int>)
-    ensures sorted();
+    2a.
+      ghost method sortedLemma(s: seq<int>)
+      requires sorted(s);
+      ensures sortedTwo(s);
+      {}
 
+      ghost method sortedTwoLemma(s: seq<int>)
+      requires sortedTwo(s);
+      ensures sorted(s);
+      {}
+
+    2b.
 
 
     3a.
@@ -24,9 +31,9 @@
       value are the same.
 
       Example:  (1,2,2,3) is the same as (2,1,3,2) because you have the same amount of all the
-      individuale values.
-      Example:  (1,1) is not the same as (1) because in the first one you have two ones and
-      the later only has one, one.
+      individuale values. One 1, two 2:s, one 3.
+      Example:  (1,1) is not the same as (1) because in the first one you have two 1:s and
+      the later only has one 1.
 
     3b.
       predicate p2(a : seq<int>, b : seq<int>){
@@ -39,40 +46,11 @@
       }
 
     4a.
-      sortArray(a : Array)
+      sortArray(a : Array<int>)
       requires a != null;
       ensures forall i, j : int :: 0 <= j < i < a.Length ==> a[j] <= a[i];
 
       modifies a;
-
-
-
-
-
-
-      -------------------------------------------------------------
-
-
-           predicate p2(a : seq<int>, b : seq<int>){
-                forall i :: 0 < i < |a| ==> countNumber(a[i],a) == countNumber(a[i],b)
-            }
-
-           function countNumber(val : int, s : seq<int>) : int
       {
-        if |s| == 0 then 0 else
-        if val == s[0] then countNumber(val,s[1..]) else countNumber(val,s[1..])
 
-
-
-
-
-        predicate p2(a : seq<int>, b : seq<int>)
-      {
-          forall i :: 0 < i < |a| ==> Count(a[i],a) == Count(a[i],b)
-      }
-
-      function Count(val : int, s : seq<int>) : int
-      {
-        if |s| == 0 then 0 else
-        if val == s[0] then Count(val, s[1..]) else Count(val, s[1..])
       }
