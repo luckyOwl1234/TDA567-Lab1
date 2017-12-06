@@ -31,7 +31,8 @@
 
       sortArray(a : Array<int>)
       requires a != null;
-      ensures forall i, j : int :: 0 <= j < i < a.Length ==> a[j] <= a[i];
+      ensures p(a[..], old(a[..]));
+      ensures sortedTwo;
       modifies a;
       {
 
