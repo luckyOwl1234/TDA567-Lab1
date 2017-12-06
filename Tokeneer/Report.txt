@@ -1,0 +1,38 @@
+# Report.txt
+
+* = Class
+§ = Variable
+- = Function/Method/FunctionMethod
+
+  * Enrollment Station
+    - [Token] enroll(int fingerprint)                     // Enrolls the fingerprint and binds it to a token
+    - [Token] enroll(int fingerprint, int clearance)      // Enrolls the fingerprint and binds it to a token, with the given clearance
+
+  * Token
+    § [int] id                                            // Unique Token identifier
+    § [int] clearance                                     // [0, 1, 2, 3] where 0 = invalid, 1 = low, 2 = medium, 3 = high
+    - [bool] setClearance(int clearance)                  // Sets this Tokens clearance level; set 0 to invalidate. Return true on success
+    - [int] getClearance()                                // Returns this Tokens clearance level
+
+  * ID Station
+    - [int] readFingerprint()                             // Read fingerprint from sensor
+    - [bool] verifyUser(int fingerprint)                  // Return true if fingerprint matches that of the connected Token in the database
+    - [bool] verifyClearance(Door door, int fingerprint)  // Return true if fingerprint has clearance to open this door
+    - [] alarm()                                          // Sound the alarm!
+    - [bool] open(Door door)                              // Attempt to open a door, returning true if door was opened, false otherwise
+    - [bool] close(Door door)                             // Attempt to close a door, returning true if door was closed, false otherwise
+
+  * User
+    § [int] fingerprint                                   // Unique User identifier
+    § [Token] token                                       // The Users Token, if enrolled
+
+  * Door
+    § [int] id                                            // Unique Door identifier
+    § [int] requiredClearance                             // Clearance required to open the door. Range: [1, 2, 3]
+
+
+
+QUESTIONS FOR GRADER:
+
+1. Isn't Token and fingerprint essentially the same thing? Why would we need to model both? Could you describe their differences?
+
