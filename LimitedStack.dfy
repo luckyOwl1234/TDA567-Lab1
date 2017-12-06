@@ -1,4 +1,4 @@
-1. Specifying LimitedStack
+// 1. Specifying LimitedStack
 
 // A LIFO queue (aka a stack) with limited capacity.
 class LimitedStack{
@@ -165,3 +165,4 @@ class LimitedStack{
            assert s.arr[0] == 32;
        }
 }
+
