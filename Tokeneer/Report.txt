@@ -15,6 +15,7 @@
     - [int] getClearance()                                // Returns this Tokens clearance level
 
   * ID Station
+    § [bool] alarmActive                                  // Current alarm status, defaults to false
     - [int] readFingerprint()                             // Read fingerprint from sensor
     - [bool] verifyUser(int fingerprint)                  // Return true if fingerprint matches that of the connected Token in the database
     - [bool] verifyClearance(Door door, int fingerprint)  // Return true if fingerprint has clearance to open this door
@@ -29,10 +30,4 @@
   * Door
     § [int] id                                            // Unique Door identifier
     § [int] requiredClearance                             // Clearance required to open the door. Range: [1, 2, 3]
-
-
-
-QUESTIONS FOR GRADER:
-
-1. Isn't Token and fingerprint essentially the same thing? Why would we need to model both? Could you describe their differences?
 
