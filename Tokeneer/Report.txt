@@ -18,7 +18,7 @@
     § [bool] alarmActive                                  // Current alarm status, defaults to false
     - [int] readFingerprint()                             // Read fingerprint from sensor
     - [bool] verifyUser(int fingerprint)                  // Return true if fingerprint matches that of the connected Token in the database
-    - [bool] verifyClearance(Door door, int fingerprint)  // Return true if fingerprint has clearance to open this door
+    - [bool] verifyClearance(Door door, int fingerprint)  // Return true if token has clearance to open this door
     - [] alarm()                                          // Sound the alarm!
     - [bool] open(Door door)                              // Attempt to open a door, returning true if door was opened, false otherwise
     - [bool] close(Door door)                             // Attempt to close a door, returning true if door was closed, false otherwise

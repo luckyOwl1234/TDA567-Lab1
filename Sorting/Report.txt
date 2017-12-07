@@ -1,3 +1,6 @@
+    2b.
+
+
     3a.
       The predicate evaluates if the two sequences have the same values and if the amount of each
       value are the same.
