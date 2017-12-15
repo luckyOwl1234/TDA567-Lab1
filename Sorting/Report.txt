@@ -1,8 +1,18 @@
 2b.
 
+<<<<<<< Updated upstream
 Base case:
   * If (|a| = 0), 
   * The initial logical implication in SortedTwo(a) evaluates to true
+=======
+        Base case:
+          If a is empty, SortedTwo(a) ==> 0 = |a| which makes whole implication to be true
+
+        Step:
+
+        Sorted(a) ==> SortedTwo(a):
+          (i, j : 0 <= i < j < |a| ==> a[i] <= a[j]) ==> ((a[0] <= a[1]) && sortedTwo(a[1..]))
+>>>>>>> Stashed changes
 
 Induction:
   * Recursing by utilizing the parameter (a[j]) results in the effective removal of (a[i]) from (a)
@@ -18,3 +28,34 @@ The predicate evaluates if the two sequences have the same values and if the amo
 Example:  (1,2,2,3) is the same as (2,1,3,2) because you have the same amount of all the individual values. One 1, two 2:s, one 3.
 Example:  (1,1) is not the same as (1) because in the first one you have two 1:s and the later only has one 1.
 
+<<<<<<< Updated upstream
+=======
+      * No answer given in 4b
+
+
+      Lemma: forall sequence a, sorted_q2(a) ==> sorted_r(a)
+
+      Proof: Let a be a sequence such that sorted_q2(a). Let us show
+      sorted_r(a) by induction on the structure of the sequence a.
+
+          Base case: assume that a is the empty sequence, show that it is sorted_r.
+
+
+          By definition of sorted_r, if the length of a sequence is > 0, the sequence is sorted_r.
+
+
+          Step: assume that the sequence a is constructed from an element a[0] followed by a sorted
+          sequence a[1..], which is sorted_r. Show that it is sorted_r.
+
+
+          If a[1..] is empty, then a has length 1 and is therefore sorted_r.
+
+
+          If a[1..] is not empty, we must show a[0] <= a[1] and sorted_r(b). By the induction hypothesis,
+
+          we know that sorted_r(a[1..]).
+
+          By definition of sorted_q2, we know that forall i, j :: 0 <= i < j < |a| ==> a[i] <= a[j].
+
+          In particular 0 <= 0 < |a| - 1 ==> a[0] <= a[1]. Therefore a[0] <= a[1], and a is sorted_r.
+>>>>>>> Stashed changes

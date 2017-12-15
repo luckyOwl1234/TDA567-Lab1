@@ -5,7 +5,7 @@
 
       predicate sortedTwo(s: seq<int>)
       {
-        0 < |s| ==> ((forall i :: 0 <= i < |s| ==> s[0] <= s[i]) && sortedTwo(s[1..]))
+        0 < |s| ==> (forall i :: 0 <= i < |s| ==> s[0] <= s[i]) && sortedTwo(s[1..])
       }
 
       ghost method sortedLemma(s: seq<int>)
@@ -31,21 +31,23 @@
           else countNumbers(s[1..], value)
       }
 
-      sortArray(a : Array<int>)
+      /*method sortArray(a : array<int>)
       requires a != null;
       requires 2 <= a.Length;
       ensures p(a[..], old(a[..]));
-      ensures sortedTwo(a[..]);
+      ensures sorted(a[..]);
       modifies a;
       {
 
-      }
+      }*/
 
-       sortArray(a : Array<int>)
+       method sortArray(a : array<int>)
        requires a != null;
        requires 1 < a.Length;
-       ensures sortedTwo(a[..]);
+       ensures sorted(a[..]);
        modifies a;
        {
-
+          forall(i | 0 <= i < a.Length){
+            a[i] := 0;
+          }
        }
