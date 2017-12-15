@@ -2,10 +2,18 @@
 
 
     3a.
-      The predicate evaluates if the two sequences have the same values and if the amount of each
+      The predicate evaluates if the two sequences have the same values and if the amount of specified
       value are the same.
 
       Example:  (1,2,2,3) is the same as (2,1,3,2) because you have the same amount of all the
       individuale values. One 1, two 2:s, one 3.
       Example:  (1,1) is not the same as (1) because in the first one you have two 1:s and
       the later only has one 1.
+
+
+      //TODO
+      # Sorting
+
+      * No proofs given. See the mailing list for examples of proofs.
+
+      * No answer given in 4b
