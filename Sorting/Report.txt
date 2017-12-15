@@ -1,19 +1,20 @@
-    2b.
+2b.
 
+Base case:
+  * If (|a| = 0), 
+  * The initial logical implication in SortedTwo(a) evaluates to true
 
-    3a.
-      The predicate evaluates if the two sequences have the same values and if the amount of specified
-      value are the same.
+Induction:
+  * Recursing by utilizing the parameter (a[j]) results in the effective removal of (a[i]) from (a)
+    * Ex. Assigning (a) to it's second element and onwards: (a = a[1..])
 
-      Example:  (1,2,2,3) is the same as (2,1,3,2) because you have the same amount of all the
-      individuale values. One 1, two 2:s, one 3.
-      Example:  (1,1) is not the same as (1) because in the first one you have two 1:s and
-      the later only has one 1.
+  * If (i < j), and (i++) results in (i++ AND j++), we can derive that by excluding (a[0]) from the next recursion, we get (a[0++]) and hence (a[1++])
+    * Ex. (SortedTwo(a - a[i])) instead of (SortedTwo(a[i]))
 
+3a.
 
-      //TODO
-      # Sorting
+The predicate evaluates if the two sequences have the same values and if the amount of specified value are the same.
 
-      * No proofs given. See the mailing list for examples of proofs.
+Example:  (1,2,2,3) is the same as (2,1,3,2) because you have the same amount of all the individual values. One 1, two 2:s, one 3.
+Example:  (1,1) is not the same as (1) because in the first one you have two 1:s and the later only has one 1.
 
-      * No answer given in 4b
