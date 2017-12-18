@@ -17,6 +17,8 @@ class EnrollmentStation {
     requires 0 <= fingerprint
     modifies this`users
     ensures fresh(token)
+    ensures token.clearance == clearance
+    ensures token.fingerprint == fingerprint
     decreases fingerprint, clearance
   {
     token := new Token;
@@ -39,6 +41,8 @@ class Token {
     modifies /*this`id, */this`clearance, this`fingerprint/*, this`invalidated*/
     /*ensures 0 <= id*/
     ensures 1 <= clearance <= 3
+    ensures this.clearance == clearance
+    ensures this.fingerprint == fingerprint
     /*ensures invalidated == false;*/
     decreases /*id, */clearance
   {
@@ -166,11 +170,9 @@ method TestMain()
   var t1 := enrStn.enroll(1,2);
 
   idStn.tryOpen(t1, 1);
-  print(idStn.doorOpen);
-  print(idStn.doorOpen);
-  //assert idStn.doorOpen;
-  //assert !idStn.alarmActive;
-/*
+  assert idStn.doorOpen;
+  assert !idStn.alarmActive;
+
   idStn.close();
   assert !idStn.doorOpen;
 
@@ -180,21 +182,57 @@ method TestMain()
 
   var t2 := enrStn.enroll(2,1);
 
-  idStn2.tryOpen(2,t2);
+  idStn2.tryOpen(t1,2);
   assert !idStn2.doorOpen;
   assert idStn2.alarmActive;
-  assert t2.cl == -1;
+  assert t1.clearance == 0;
 
   //test case 3
   var idStn3 := new IDStation;
   idStn3.init(1);
 
   var t3 := enrStn.enroll(3,2);
-  var t4 := enrStn.enroll(4,0);
+  var t4 := enrStn.enroll(4,1);
 
-  idStn3.tryOpen(4,t3);
+  idStn3.tryOpen(t3,4);
   assert !idStn3.doorOpen;
   assert idStn3.alarmActive;
-  assert t3.cl == -1;
-*/
+  assert t3.clearance == 0;
+
+  // Test 4 (valid cert but lower clearance)
+
+  var idStn4 := new IDStation;
+  idStn4.init(2);
+
+  var t5 := enrStn.enroll(5,1);
+
+  idStn4.tryOpen(t5,5);
+
+  assert !idStn4.doorOpen;
+  assert !idStn4.alarmActive;
+  assert t5.clearance == 1;
+
+  // Test 5 (two users, same fingerprint, different clearance)
+
+  var idStn5 := new IDStation;
+  idStn5.init(3);
+
+  var t6 := enrStn.enroll(6,3);
+  var t7 := enrStn.enroll(6,2);
+
+  idStn5.tryOpen(t6,6);
+
+  assert idStn5.doorOpen;
+  assert !idStn5.alarmActive;
+  assert t6.clearance == 3;
+
+  idStn5.close();
+
+  idStn5.tryOpen(t7,6);
+
+  assert !idStn5.doorOpen;
+  assert !idStn5.alarmActive;
+  assert t7.clearance == 2;
+
 }
+
