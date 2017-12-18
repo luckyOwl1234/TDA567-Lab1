@@ -1,6 +1,29 @@
 # Report.txt
 
-## Data structures
+We have an enrollmentStation, IDStation and token class.
+
+EnrollmentStation
+
+We decided to use 1-3 to indicate level of access and 0 to indicate if token is invalid. Because
+of this a new token has as lowest a clearance of 1. Positive numbers i the shit, negative numbers is pain.
+When we create a new token we ensure that its a fresh token.
+
+Token
+
+Handles the unique tokens by using fingerprints. Also stores clearance which can be invalidated if
+someone else then the owner of the token tries to use it. Has a method that invalidates the token.
+
+IDStation
+
+When trying to open a door, the door has to be closed the alarm has to be off and the token used '
+has to exist. There are three cases when trying to open the door:
+1. Fingerprints match the token and clearance is correct, the door opens.
+2. Fingerprints match the token but clearance it too low, the door doesnt open but no alarm sounds
+   and the token remains valid.
+3. Fingerprints doesnt match the token, the door doesnt open, the alarm activates and the token
+   is invalidated.
+
+## Implementation
 * We originally planned to use a key/value map for fingerprint/token storage,
   but since token already contains the assigned fingerprint, and all
   fingerprints are unique, we chose a Set of fingerprints instead.
@@ -13,38 +36,3 @@
 * Originally, we planned to allow invalid tokens to open some non-critical
   doors. Since the target is a high-security building, we altered our spec
   accordingly.
-
-
-
-
-* = Class
-§ = Variable
-- = Function/Method/FunctionMethod
-
-  * Enrollment Station
-    - [Token] enroll(int fingerprint)                     // Enrolls the fingerprint and binds it to a token
-    - [Token] enroll(int fingerprint, int clearance)      // Enrolls the fingerprint and binds it to a token, with the given clearance
-
-  * Token
-    § [int] id                                            // Unique Token identifier
-    § [int] clearance                                     // [0, 1, 2, 3] where 0 = invalid, 1 = low, 2 = medium, 3 = high
-    - [bool] setClearance(int clearance)                  // Sets this Tokens clearance level; set 0 to invalidate. Return true on success
-    - [int] getClearance()                                // Returns this Tokens clearance level
-
-  * ID Station
-    § [bool] alarmActive                                  // Current alarm status, defaults to false
-    - [int] readFingerprint()                             // Read fingerprint from sensor
-    - [bool] verifyUser(int fingerprint)                  // Return true if fingerprint matches that of the connected Token in the database
-    - [bool] verifyClearance(Door door, int fingerprint)  // Return true if token has clearance to open this door
-    - [] alarm()                                          // Sound the alarm!
-    - [bool] open(Door door)                              // Attempt to open a door, returning true if door was opened, false otherwise
-    - [bool] close(Door door)                             // Attempt to close a door, returning true if door was closed, false otherwise
-
-  * User
-    § [int] fingerprint                                   // Unique User identifier
-    § [Token] token                                       // The Users Token, if enrolled
-
-  * Door
-    § [int] id                                            // Unique Door identifier
-    § [int] requiredClearance                             // Clearance required to open the door. Range: [1, 2, 3]
-
