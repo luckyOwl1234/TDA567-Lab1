@@ -49,11 +49,14 @@ class Token{
 
 class IDStation{
 
+  var doorOpen: bool;
   var alarmActive: bool;
 
   method init()
+    modifies this`doorOpen;
     modifies this`alarmActive;
   {
+    doorOpen := false;
     alarmActive := false;
   }
 
@@ -65,7 +68,7 @@ class IDStation{
   {
   }
 
-  method verifyClearance(door : Door, token : Token) returns (correctClearance : bool)
+  method verifyClearance(token : Token) returns (correctClearance : bool)
   {
   }
 
@@ -85,11 +88,11 @@ class IDStation{
     this.alarmActive := false;
   }
 
-  method open(door : Door) returns (doorOpen : bool)
+  method open() returns (doorOpen : bool)
   {
   }
 
-  method close(door : Door) returns (doorClosed : bool)
+  method close() returns (doorOpen : bool)
   {
   }
 }
