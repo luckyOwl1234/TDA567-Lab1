@@ -10,7 +10,9 @@
   subsequently sound the alarm.
 * If the clearance was not met, we assume that no alarm is required - alarms
   would be commonplace otherwise.
-
+* Originally, we planned to allow invalid tokens to open some non-critical
+  doors. Since the target is a high-security building, we altered our spec
+  accordingly.
 
 
 
