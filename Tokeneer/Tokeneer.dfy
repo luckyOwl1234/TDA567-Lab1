@@ -15,10 +15,14 @@ class EnrollmentStation {
   method enroll(fingerprint: int, clearance: int) returns (token: Token)
     requires 1 <= clearance <= 3
     requires 0 <= fingerprint
+    requires fingerprint !in users
     modifies this`users
     ensures fresh(token)
     ensures token.clearance == clearance
     ensures token.fingerprint == fingerprint
+    ensures users == old(users) + {fingerprint}
+    ensures fingerprint in users //TODO: Prettify
+    ensures token != null
     decreases fingerprint, clearance
   {
     token := new Token;
@@ -40,7 +44,7 @@ class Token {
     requires 0 <= fingerprint
     modifies /*this`id, */this`clearance, this`fingerprint/*, this`invalidated*/
     /*ensures 0 <= id*/
-    ensures 1 <= clearance <= 3
+    /*ensures 1 <= clearance <= 3*/
     ensures this.clearance == clearance
     ensures this.fingerprint == fingerprint
     /*ensures invalidated == false;*/
@@ -52,18 +56,13 @@ class Token {
     /*this.invalidated := false;*/
   }
 
-  method setClearance(clearance: int) returns (clearanceSet: bool)
+  method setClearance(clearance: int) /*returns (clearanceSet: bool)*/
     requires 0 <= clearance <= 3
     modifies this`clearance
-    ensures 0 <= clearance <= 3
+    ensures this.clearance == clearance
     decreases clearance
   {
     this.clearance := clearance;
-    if this.clearance == clearance {
-      clearanceSet := true;
-    } else {
-      clearanceSet := false;
-    }
   }
 
   method invalidate() //returns (invalidated: bool)
@@ -158,81 +157,108 @@ class IDStation {
   }
 }
 
-method TestMain()
+method main()
 {
-  //test case 1
-  var enrStn := new EnrollmentStation;
-  enrStn.init();
+  // Test 1 (Higher clearance than required, Open door, No alarm)
+  var enrollmentStation := new EnrollmentStation;
+  enrollmentStation.init();
 
-  var idStn := new IDStation;
-  idStn.init(1);
+  var IDStation := new IDStation;
+  IDStation.init(1);
 
-  var t1 := enrStn.enroll(1,2);
+  var firstUser := enrollmentStation.enroll(1,2);
 
-  idStn.tryOpen(t1, 1);
-  assert idStn.doorOpen;
-  assert !idStn.alarmActive;
+  IDStation.tryOpen(firstUser, 1);
+  assert IDStation.doorOpen;
+  assert !IDStation.alarmActive;
 
-  idStn.close();
-  assert !idStn.doorOpen;
+  IDStation.close();
+  assert !IDStation.doorOpen;
 
-  //test case 2
-  var idStn2 := new IDStation;
-  idStn2.init(2);
+  // Test 2 (Lower clearance than required, Door remains closed, No alarm, Valid token)
+  var IDStation2 := new IDStation;
+  IDStation2.init(2);
 
-  var t2 := enrStn.enroll(2,1);
+  var secondUser := enrollmentStation.enroll(2,1);
 
-  idStn2.tryOpen(t1,2);
-  assert !idStn2.doorOpen;
-  assert idStn2.alarmActive;
-  assert t1.clearance == 0;
+  IDStation2.tryOpen(secondUser,2);
+  assert !IDStation2.doorOpen;
+  assert !IDStation2.alarmActive;
+  assert secondUser.clearance == 1;
 
-  //test case 3
-  var idStn3 := new IDStation;
-  idStn3.init(1);
+  // Test 3 (Wrong user, Door remains closed, Sound alarm, Invalidate token)
+  var IDStation3 := new IDStation;
+  IDStation3.init(1);
 
-  var t3 := enrStn.enroll(3,2);
-  var t4 := enrStn.enroll(4,1);
+  var thirdUser := enrollmentStation.enroll(3,2);
+  var fourthUser := enrollmentStation.enroll(4,1);
 
-  idStn3.tryOpen(t3,4);
-  assert !idStn3.doorOpen;
-  assert idStn3.alarmActive;
-  assert t3.clearance == 0;
+  IDStation3.tryOpen(thirdUser,4);
+  assert !IDStation3.doorOpen;
+  assert IDStation3.alarmActive;
+  assert thirdUser.clearance == 0;
 
-  // Test 4 (valid cert but lower clearance)
+  // Test 4 (Same door twice, Door opens both times, No alarm)
 
-  var idStn4 := new IDStation;
-  idStn4.init(2);
+  var IDStation4 := new IDStation;
+  IDStation4.init(2);
 
-  var t5 := enrStn.enroll(5,1);
+  var fifthUser := enrollmentStation.enroll(5,2);
 
-  idStn4.tryOpen(t5,5);
+  IDStation4.tryOpen(fifthUser,5);
 
-  assert !idStn4.doorOpen;
-  assert !idStn4.alarmActive;
-  assert t5.clearance == 1;
+  assert IDStation4.doorOpen;
+  assert !IDStation4.alarmActive;
 
-  // Test 5 (two users, same fingerprint, different clearance)
+  IDStation4.close();
 
-  var idStn5 := new IDStation;
-  idStn5.init(3);
+  IDStation4.tryOpen(fifthUser,5);
 
-  var t6 := enrStn.enroll(6,3);
-  var t7 := enrStn.enroll(6,2);
+  assert IDStation4.doorOpen;
+  assert !IDStation4.alarmActive;
 
-  idStn5.tryOpen(t6,6);
+  // TODO: "Works" but doesn't compile. How to implement?
+  // Test 5 (Two users, Same fingerprint, Different clearance)
+/*
+  var IDStation5 := new IDStation;
+  IDStation5.init(3);
 
-  assert idStn5.doorOpen;
-  assert !idStn5.alarmActive;
-  assert t6.clearance == 3;
+  var sixthUser := enrollmentStation.enroll(6,3);
+  var seventhUser := enrollmentStation.enroll(6,2);
 
-  idStn5.close();
+  IDStation5.tryOpen(sixthUser,6);
 
-  idStn5.tryOpen(t7,6);
+  assert IDStation5.doorOpen;
+  assert !IDStation5.alarmActive;
+  assert sixthUser.clearance == 3;
 
-  assert !idStn5.doorOpen;
-  assert !idStn5.alarmActive;
-  assert t7.clearance == 2;
+  IDStation5.close();
 
+  IDStation5.tryOpen(seventhUser,6);
+
+  assert !IDStation5.doorOpen;
+  assert !IDStation5.alarmActive;
+  assert seventhUser.clearance == 2;
+*/
+
+  // Test 6 (Change clearance, Door opens, No alarm, Valid token)
+  var IDStation6 := new IDStation;
+  IDStation6.init(2);
+
+  var eightUser := enrollmentStation.enroll(8,1);
+  
+  IDStation6.tryOpen(eightUser,8);
+
+  assert !IDStation6.doorOpen;
+  assert !IDStation6.alarmActive;
+  assert eightUser.clearance == 1;
+
+  eightUser.setClearance(3);
+
+  IDStation6.tryOpen(eightUser,8);
+
+  assert IDStation6.doorOpen;
+  assert !IDStation6.alarmActive;
+  assert eightUser.clearance == 3;
 }
 
