@@ -20,17 +20,23 @@ class EnrollmentStation {
 class Token {
   var id: int
   var clearance: int
+  var fingerprint: int
+  var invalidated: bool
 
-  method init(id: int, clearance: int)
+  method init(id: int, clearance: int, fingerprint: int)
     requires 0 <= id
     requires 1 <= clearance <= 3
-    modifies this`id, this`clearance
+    requires 0 <= fingerprint
+    modifies this`id, this`clearance, this`fingerprint, this`invalidated
     ensures 0 <= id
     ensures 1 <= clearance <= 3
+    ensures invalidated == false;
     decreases id, clearance
   {
     this.id := id;
     this.clearance := clearance;
+    this.fingerprint := fingerprint;
+    this.invalidated := false;
   }
 
   method setClearance(clearance: int) returns (clearanceSet: bool)
@@ -44,6 +50,19 @@ class Token {
       clearanceSet := true;
     } else {
       clearanceSet := false;
+    }
+  }
+
+  method invalidate() returns (invalidated: bool)
+    requires clearance != 0
+    modifies this`clearance
+    ensures clearance == 0
+  {
+    if this.clearance != 0 {
+      clearance := 0;
+      invalidated := true;
+    } else {
+      invalidated := false;
     }
   }
 
