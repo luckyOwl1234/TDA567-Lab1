@@ -7,11 +7,7 @@
 * Most methods were at first designed to return a boolean depending on if they
   succeeded or not. This proved impractical and was cut before final hand-in.
 
-## Classes
-* Enrollment Station
-** Contains a Set of users (in fingerprint form)
-** Ensures unique tokens for each user
-** 
+
 
 ## Opening doors
 * If an alarm is active, we assume that the offender shall not escape, and
@@ -22,7 +18,40 @@
   doors. Since the target is a high-security building, we altered our spec
   accordingly.
 
-## Questions for grader
-* How would you enable testing for something that fails a precondition at
-  compile time? I.e. our test 5.
+
+
+## Classes
+* Enrollment Station
+
+** Contains a Set of users (in fingerprint form)
+** Ensures unique tokens for each user
+** We decided to use 1-3 to indicate level of access and 0 to indicate if token is
+invalid. Because of this a new token has as lowest a clearance of 1.
+** We bound fingerprints to strictly positive values because they would've been
+easier to work with in a semi-real implementation.
+** Furthermore, when we create a new token we ensure that its a fresh token.
+
+
+
+* Token
+** Handles the unique tokens by using fingerprints.
+** Stores clearance which can be invalidated if someone other than the owner of
+the token attempts utilization.
+**Has a method that invalidates the token.
+
+
+
+* IDStation
+
+** When trying to open a door:
+*** The door has to be closed
+*** The alarm has to be disabled
+*** The utilized token has to exist
+
+** There are three cases when trying to open the door:
+1. Fingerprints match the token and clearance is correct, the door opens.
+2. Fingerprints match the token but clearance it too low, the door doesnt open but no alarm sounds
+   and the token remains valid.
+3. Fingerprints doesnt match the token, the door doesnt open, the alarm activates and the token
+   is invalidated.
 
