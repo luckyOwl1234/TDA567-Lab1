@@ -15,9 +15,9 @@ class EnrollmentStation {
     decreases fingerprint, clearance
   {
   }
-}
+  }
 
-class Token {
+  class Token {
   var id: int
   var clearance: int
   var fingerprint: int
@@ -53,9 +53,9 @@ class Token {
     }
   }
 
-  method invalidate() returns (invalidated: bool)
+  method invalidate() //returns (invalidated: bool)
     requires clearance != 0
-    modifies this`clearance
+    modifies this`clearance, this`invalidated
     ensures clearance == 0
   {
     if this.clearance != 0 {
@@ -74,28 +74,74 @@ class Token {
 
 class IDStation {
   var doorOpen: bool
+  var doorClearance: int
   var alarmActive: bool
 
-  method init()
-    modifies this`doorOpen, this`alarmActive
+  method init(doorClearance: int)
+    requires 1 <= doorClearance <= 3
+    modifies this`doorOpen, this`doorClearance, this`alarmActive
+    ensures this.doorOpen == false
+    ensures this.doorClearance == doorClearance
+    ensures this.alarmActive == false
   {
     doorOpen := false;
+    this.doorClearance := doorClearance;
     alarmActive := false;
   }
 
-  method readFingerPrint() returns (fingerPrint: int)
+  method tryOpen(token: Token, fingerprint: int) returns (doorOpen: bool)
+    requires doorOpen == false
+    requires alarmActive == false
+    requires token != null
+    requires 0 <= fingerprint
+    requires 0 <= token.fingerprint
+    requires 1 <= token.clearance <= 3
+    modifies this`doorOpen, this`alarmActive, token
   {
+    // Verify user integrity
+    if token.fingerprint == fingerprint { //this.verifyUser(token, fingerprint) && this.verifyClearance(token) {
+      // Verify clearance
+      if token.clearance >= this.doorClearance {
+        // Open door
+        open();
+      } else {
+        // ???? BAD CLEARANCE
+      }
+    } else {
+      alarmOn();
+      token.invalidate();
+    }
   }
 
-  method verifyUser(fingerPrint: int) returns (correctUser: bool)
-    decreases fingerPrint
+    /*
+    method verifyUser(token: Token, fingerprint: int) returns (correctUser: bool)
+    requires 0 <= token.fingerprint
+    requires 0 <= fingerprint
+    requires token != null
+    requires this.alarmActive == false
+    modifies this`alarmActive, token
+    decreases fingerprint
   {
+    if token.fingerprint == fingerprint {
+      correctUser := true;
+      //verifyClearance(token);
+    } else {
+      correctUser := false;
+      alarmOn();
+      token.invalidate();
+    }
   }
 
   method verifyClearance(token: Token) returns (correctClearance: bool)
+    requires 1 <= token.clearance
     decreases token
   {
-  }
+    if token.clearance >= this.doorClearance {
+      correctClearance := true;
+    } else {
+      correctClearance := false;
+    }
+  } */
 
   method alarmOn()
     requires this.alarmActive == false
@@ -113,12 +159,20 @@ class IDStation {
     this.alarmActive := false;
   }
 
-  method open() returns (doorOpen: bool)
+  method open() //returns (doorOpen: bool)
+    requires doorOpen == false
+    modifies this`doorOpen
+    ensures this.doorOpen == true
   {
+    this.doorOpen := true;
   }
 
-  method close() returns (doorOpen: bool)
+  method close() //returns (doorOpen: bool)
+    requires doorOpen == true
+    modifies this`doorOpen
+    ensures this.doorOpen == false
   {
+    this.doorOpen := false;
   }
 }
 

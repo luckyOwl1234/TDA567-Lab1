@@ -1,5 +1,20 @@
 # Report.txt
 
+## Data structures
+* We originally planned to use a key/value map for fingerprint/token storage,
+  but since token already contains the assigned fingerprint, and all
+  fingerprints are unique, we chose a Set of fingerprints instead.
+
+## Opening doors
+* If an alarm is active, we assume that the offender shall not escape, and
+  subsequently sound the alarm.
+* If the clearance was not met, we assume that no alarm is required - alarms
+  would be commonplace otherwise.
+
+
+
+
+
 * = Class
 § = Variable
 - = Function/Method/FunctionMethod
