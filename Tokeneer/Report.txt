@@ -1,9 +1,17 @@
 # Report.txt
 
-## Data structures
-* We originally planned to use a key/value map for fingerprint/token storage,
-  but since token already contains the assigned fingerprint, and all
-  fingerprints are unique, we chose a Set of fingerprints instead.
+## Implementation
+* We were planning to use a key/value map for fingerprint/token storage, but
+  since token already contains the assigned fingerprint, and all fingerprints are
+  unique, we chose a Set of fingerprints instead.
+* Most methods were at first designed to return a boolean depending on if they
+  succeeded or not. This proved impractical and was cut before final hand-in.
+
+## Classes
+* Enrollment Station
+** Contains a Set of users (in fingerprint form)
+** Ensures unique tokens for each user
+** 
 
 ## Opening doors
 * If an alarm is active, we assume that the offender shall not escape, and
@@ -14,37 +22,7 @@
   doors. Since the target is a high-security building, we altered our spec
   accordingly.
 
-
-
-
-* = Class
-§ = Variable
-- = Function/Method/FunctionMethod
-
-  * Enrollment Station
-    - [Token] enroll(int fingerprint)                     // Enrolls the fingerprint and binds it to a token
-    - [Token] enroll(int fingerprint, int clearance)      // Enrolls the fingerprint and binds it to a token, with the given clearance
-
-  * Token
-    § [int] id                                            // Unique Token identifier
-    § [int] clearance                                     // [0, 1, 2, 3] where 0 = invalid, 1 = low, 2 = medium, 3 = high
-    - [bool] setClearance(int clearance)                  // Sets this Tokens clearance level; set 0 to invalidate. Return true on success
-    - [int] getClearance()                                // Returns this Tokens clearance level
-
-  * ID Station
-    § [bool] alarmActive                                  // Current alarm status, defaults to false
-    - [int] readFingerprint()                             // Read fingerprint from sensor
-    - [bool] verifyUser(int fingerprint)                  // Return true if fingerprint matches that of the connected Token in the database
-    - [bool] verifyClearance(Door door, int fingerprint)  // Return true if token has clearance to open this door
-    - [] alarm()                                          // Sound the alarm!
-    - [bool] open(Door door)                              // Attempt to open a door, returning true if door was opened, false otherwise
-    - [bool] close(Door door)                             // Attempt to close a door, returning true if door was closed, false otherwise
-
-  * User
-    § [int] fingerprint                                   // Unique User identifier
-    § [Token] token                                       // The Users Token, if enrolled
-
-  * Door
-    § [int] id                                            // Unique Door identifier
-    § [int] requiredClearance                             // Clearance required to open the door. Range: [1, 2, 3]
+## Questions for grader
+* How would you enable testing for something that fails a precondition at
+  compile time? I.e. our test 5.
 
