@@ -1,8 +1,12 @@
 class EnrollmentStation{
 
-  /*method enroll(fingerprint: int) returns(token: Token)
+  var users : set<int>;
+
+  method init()
+    modifies this`users;
   {
-  }*/
+    users := {};
+  }
 
   method enroll(fingerprint : int, clearance : int) returns(token : Token)
   {
@@ -16,10 +20,11 @@ class Token{
 
   method init(id : int, clearance : int)
   requires 0 <= id;
-  requires 0 <= clearance <= 3;
+  requires 1 <= clearance <= 3;
   ensures 0 <= id;
-  ensures 0 <= clearance <= 3;
-  modifies this;
+  ensures 1 <= clearance <= 3;
+  modifies this`id;
+  modifies this`clearance;
   {
     this.id := id;
     this.clearance := clearance;
@@ -46,9 +51,8 @@ class IDStation{
 
   var alarmActive: bool;
 
-
   method init()
-    modifies this;
+    modifies this`alarmActive;
   {
     alarmActive := false;
   }
@@ -90,30 +94,3 @@ class IDStation{
   }
 }
 
-class User{
-
-  var fingerPrint : int;
-  var token : Token;
-
-  method init()
-  modifies this;
-  {}
-
-}
-
-class Door{
-
-  var id : int;
-  var requiredClearance : int;
-
-  method init(id : int, clearance : int)
-  requires 0 <= clearance <= 3;
-  requires 0 <= id;
-  ensures this.id >= 0;
-  ensures 0 <= this.requiredClearance <= 3;
-  modifies this;
-  {
-    this.id := id;
-    requiredClearance := clearance;
-  }
-}
