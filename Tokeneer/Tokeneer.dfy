@@ -1,15 +1,12 @@
 class EnrollmentStation{
 
-  method enroll(fingerpring : int) return(token : Token)
-
+  /*method enroll(fingerprint: int) returns(token: Token)
   {
+  }*/
 
-  }
-
-  method enroll(fingerprint : int, clearance : int) return(token : Token)
+  method enroll(fingerprint : int, clearance : int) returns(token : Token)
   {
   }
-
 }
 
 class Token{
@@ -24,69 +21,73 @@ class Token{
   ensures 0 <= clearance <= 3;
   modifies this;
   {
-    this`id := id;
-    this`clearance := clearance;
+    this.id := id;
+    this.clearance := clearance;
   }
 
-  method setClearance(clearance : int) return( : bool)
+  method setClearance(clearance : int) returns (clearanceSet : bool)
   requires 0 <= clearance <= 3;
   ensures 0 <= clearance <= 3;
   modifies this`clearance;
   {
-    this`clearance := clearance;
-    if this`clearance == clearance then return true
-    else return false
+    this.clearance := clearance;
+    if this.clearance == clearance
+      {clearanceSet := true;}
+    else
+      {clearanceSet := false;}
   }
 
-  method getClearance() return(clearance : int){
-    return this`clearance;
+  method getClearance() returns(clearance : int){
+    return this.clearance;
   }
 }
 
 class IDStation{
 
-  var alarmActive : bool := false;
+  var alarmActive: bool;
 
-  method readFingerPrint() return(fingerPrint : int)
+
+  method init()
+    modifies this;
   {
-
+    alarmActive := false;
   }
 
-  method verifyUser(fingerPrint : int) return(correctUser : bool)
-
+  method readFingerPrint() returns (fingerPrint : int)
   {
-
-
-
   }
 
-  method verifyClearance(door : Door, token : Token) return(correctClearance : bool)
+  method verifyUser(fingerPrint : int) returns (correctUser : bool)
+  {
+  }
 
-  {}
+  method verifyClearance(door : Door, token : Token) returns (correctClearance : bool)
+  {
+  }
 
   method alarmOn()
-  requires this`alarmActive == false;
-  ensures this`alarmActive == true;
+  requires this.alarmActive == false;
+  ensures this.alarmActive == true;
   modifies this`alarmActive;
   {
-    this`alarmActive := true;
+    this.alarmActive := true;
   }
 
   method alarmOff()
-  requires this`alarmActive == true;
-  ensures this`alarmActive == false;
+  requires this.alarmActive == true;
+  ensures this.alarmActive == false;
   modifies this`alarmActive;
   {
-    this`alarmActive := false;
+    this.alarmActive := false;
   }
 
-  method open(door : Door) return(doorOpen : bool)
+  method open(door : Door) returns (doorOpen : bool)
+  {
+  }
 
-  {}
-
-  method close(door : Door) return(doorClosed : bool)
-
-  {}
+  method close(door : Door) returns (doorClosed : bool)
+  {
+  }
 }
 
 class User{
@@ -108,11 +109,11 @@ class Door{
   method init(id : int, clearance : int)
   requires 0 <= clearance <= 3;
   requires 0 <= id;
-  ensures this`id <= 0;
-  ensures 0 <= this`requiredClearance <= 3;
+  ensures this.id >= 0;
+  ensures 0 <= this.requiredClearance <= 3;
   modifies this;
   {
-    this`id := id;
+    this.id := id;
     requiredClearance := clearance;
   }
 }
